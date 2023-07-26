@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import HomePage from "./pages/home";
-import SettlementPage from "./pages/SettlementPage";
+import SettlementPage from "./pages/Page4";
 
 const Layout = () => {
   return (

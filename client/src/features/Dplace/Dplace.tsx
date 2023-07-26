@@ -1,12 +1,21 @@
 import * as React from 'react';
 import type { FC } from "react"
-
+ 
 import Box from '@mui/material/Box';
 import {Paper, Grid, Slider, Card, CardMedia, Typography} from '@mui/material';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { updateTmpArray } from '../../slice/tmpSlice';
+ 
+
+const Dplace: FC<{picpath:string, typename:string, index:number}> = ({picpath, typename, index}) => {
+  const state = useAppSelector(state => state.TmpArray);
+  const dispatch = useAppDispatch();
 
 
-const Dplace: FC<{picpath:string, typename:string}> = ({picpath, typename}) => {
-  const tt = "";
+  const updata = (event:Event | React.SyntheticEvent<Element, Event>, val:number | number[]) => {
+    // console.log(state.tmp.list[0][index]);
+    dispatch(updateTmpArray([index, val]));
+  }
 
   return(
       <Box sx={{
@@ -43,12 +52,12 @@ const Dplace: FC<{picpath:string, typename:string}> = ({picpath, typename}) => {
             <Slider
               aria-label="Time"
               defaultValue={0}
-              // getAriaValueText="23213"
               valueLabelDisplay="on"
               step={1}
               marks
               min={0}
               max={60}
+              onChangeCommitted={updata}
             />
           </Grid>
         </Grid>
