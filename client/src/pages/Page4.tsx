@@ -14,7 +14,9 @@ import {
 } from "chart.js"
 
 import { Radar } from "react-chartjs-2"
-// import "chartjs-plugin-dragdata"    // must import this 
+import { useRequestProcessor } from "../hooks/useRequestProcessor"
+import { getData } from "../api"
+// import "chartjs-plugin-dragdata"    // must import this
 
 ChartJS.register(
   RadialLinearScale,
@@ -25,14 +27,24 @@ ChartJS.register(
   Legend,
 )
 
-
 function Page4() {
   const state = useAppSelector(state => state.wayOfMoving);
 
 
   const data = {
     responsive: false,
-    labels: ["腳踏車","機車","捷運","輕軌","汽車","公車","電動摩托車","走路","火車","電動汽車"],
+    labels: [
+      "腳踏車",
+      "機車",
+      "捷運",
+      "輕軌",
+      "汽車",
+      "公車",
+      "電動摩托車",
+      "走路",
+      "火車",
+      "電動汽車",
+    ],
     // pointHitRadius: 10,
     datasets: [
       {
@@ -41,23 +53,25 @@ function Page4() {
         backgroundColor: "#1231568F",
         pointBackgroundColor: "#125896",
         borderColor: "#584832",
-        pointHoverBorderColor: 'rgb(255, 99, 132)',
+        pointHoverBorderColor: "rgb(255, 99, 132)",
         // lineTension: 0.5,
-        
       },
       {
-        label: "Avg Carbon footprint",
-        data: [24,3,5,19,15,18,10,22,15,13],
+        label: "Avlhost",
+       "http://localhost:3000",
+       "http://localhost:8000",g Carbon footprint",
+        data: [24, 3, 5, 19, 15, 18, 10, 22, 15, 13],
         backgroundColor: "#AB20154F",
         pointBackgroundColor: "#125896",
         borderColor: "#584832",
-        pointHoverBorderColor: 'rgb(255, 99, 132)',
+        pointHoverBorderColor: "rgb(255, 99, 132)",
         // lineTension: 0.5,
-        
       },
-    ]
+    ],
   }
-
+lhost",
+       "http://localhost:3000",
+       "http://localhost:8000",
   const option = {
     plugins: {
       legend: {
@@ -65,25 +79,25 @@ function Page4() {
       },
       datalabels: {
         display: true,
-        color: "white"
-      }
+        color: "white",
+      },
     },
     scales: {
       r: {
         beginAtZero: true,
-        gridLines: {   
+        gridLines: {
           display: true,
           color: "white",
           // lineWidth: 3
         },
         angleLines: {
-          color: "#000000"
+          color: "#000000",
         },
         pointLabels: {
           // display: true,
           font: {
-              size: 15
-          }
+            size: 15,
+          },
         },
         grid: {
           color: "#000000",
@@ -101,12 +115,27 @@ function Page4() {
     elements: {
       point: {
         radius: 2, // 結果的角度圓點大小
-      },
+      },lhost",
+       "http://localhost:3000",
+       "http://localhost:8000",
       line: {
         borderWidth: 2, //結果線的寬度
       },
-    }
+    },
   }
+
+  const { query } = useRequestProcessor()
+
+  const {
+    data: chartData,
+    isLoading,
+    isError,
+  } = query("getData", () => getData(), {
+    enabled: true,
+  })
+
+  console.log({chartData})
+
   return (
     <>
     <Grid container mt={10}>

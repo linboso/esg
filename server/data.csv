@@ -1,0 +1,53 @@
+gender,location,bike,motor,e_motor
+Male,New York,45,12,56
+Female,Los Angeles,23,44,18
+Male,Chicago,35,51,9
+Female,Houston,52,31,40
+Male,Miami,17,20,36
+Female,Dallas,9,29,50
+Male,New York,50,6,55
+Female,Los Angeles,14,53,17
+Male,Chicago,22,39,43
+Female,Houston,38,49,5
+Male,Miami,3,27,39
+Female,Dallas,56,15,41
+Male,New York,46,11,30
+Female,Los Angeles,21,45,34
+Male,Chicago,34,50,12
+Female,Houston,53,32,57
+Male,Miami,16,19,3
+Female,Dallas,8,28,54
+Male,New York,51,7,21
+Female,Los Angeles,13,52,26
+Male,Chicago,23,38,48
+Female,Houston,37,48,58
+Male,Miami,4,26,20
+Female,Los Angeles,20,46,38
+Male,Chicago,33,49,44
+Female,Houston,54,33,15
+Male,Miami,15,18,42
+Female,Dallas,7,27,53
+Male,New York,52,8,28
+Female,Los Angeles,12,51,8
+Male,Chicago,24,37,37
+Female,Houston,36,47,51
+Male,Miami,5,25,2
+Female,Dallas,58,17,7
+Male,New York,48,9,19
+Female,Los Angeles,19,47,31
+Male,Chicago,32,48,33
+Female,Houston,55,34,45
+Male,Miami,14,17,52
+Female,Dallas,6,26,10
+Male,New York,50,6,56
+Female,Los Angeles,18,45,14
+Male,Chicago,31,50,32
+Female,Houston,57,35,47
+Male,Miami,13,16,23
+Female,Dallas,5,28,29
+Male,New York,49,7,35
+Female,Los Angeles,17,44,13
+Male,Chicago,30,49,11
+Female,Houston,56,36,46
+Male,Miami,12,15,1
+Female,Dallas,4,27,16
