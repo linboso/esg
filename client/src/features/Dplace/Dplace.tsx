@@ -1,21 +1,28 @@
 import * as React from 'react';
-import type { FC } from "react"
+import { useState, type FC, useRef, useEffect } from "react"
  
 import Box from '@mui/material/Box';
 import {Paper, Grid, Slider, Card, CardMedia, Typography} from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { updateTmpArray } from '../../slice/tmpSlice';
- 
+
+
 
 const Dplace: FC<{picpath:string, typename:string, index:number}> = ({picpath, typename, index}) => {
-  const state = useAppSelector(state => state.TmpArray);
+  const [val, setVal] = useState<number>(0);
+  const state = useAppSelector(state => state.TmpArray.clear);
   const dispatch = useAppDispatch();
 
 
-  const updata = (event:Event | React.SyntheticEvent<Element, Event>, val:number | number[]) => {
-    // console.log(state.tmp.list[0][index]);
+  const updata = (event:Event | React.SyntheticEvent<Element, Event>, value:number | number[]) => {
     dispatch(updateTmpArray([index, val]));
-  }
+  } 
+  
+  useEffect(() => {
+    if(state.check) {
+      setVal(0);
+    }
+  },[state]);
 
   return(
       <Box sx={{
@@ -52,11 +59,14 @@ const Dplace: FC<{picpath:string, typename:string, index:number}> = ({picpath, t
             <Slider
               aria-label="Time"
               defaultValue={0}
+              value={val}
+              // value={ref.current}
               valueLabelDisplay="on"
               step={1}
               marks
               min={0}
               max={60}
+              onChange={(event, value) => {setVal(value)}}
               onChangeCommitted={updata}
             />
           </Grid>

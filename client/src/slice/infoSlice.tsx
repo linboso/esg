@@ -5,7 +5,8 @@ const initialState = {
     gender: "",
     age: "",
     location: "", 
-  }, 
+  },
+  
 }
 
 const wayOfMovingSlice = createSlice({

@@ -1,25 +1,11 @@
 import logo from "./logo.svg"
-import { useNavigate, Link } from "react-router-dom"
-import NextPlanIcon from "@mui/icons-material/NextPlan"
-import PublicIcon from "@mui/icons-material/Public"
-import {
-  Grid,
-  Card,
-  CardMedia,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Button,
-  TextField,
-  Box,
-  Typography,
-  MenuItem,
-} from "@mui/material"
-import { useState } from "react"
-import { useRequestProcessor } from "../hooks/useRequestProcessor"
-import { postData } from "../api"
+import { useNavigate, Link} from "react-router-dom";
+import NextPlanIcon from '@mui/icons-material/NextPlan';
+import PublicIcon from '@mui/icons-material/Public';
+import {Grid, Card, CardMedia, FormControl, FormLabel,RadioGroup, FormControlLabel, Radio, Button, TextField, Box, Typography, MenuItem} from '@mui/material';
+import { useState } from "react";
+import { useAppSelector } from "../app/hooks";
+import { useRequestProcessor } from "../hooks/useRequestProcessor";
 
 function Page3() {
   const [gender, setGender] = useState<string>("female")
@@ -150,6 +136,7 @@ function Page3() {
               height="auto"
               width="auto"
               image="../../pic/otter2.gif"
+              // image="../../pic/otter.jpg"
             />
           </Card>
         </Grid>
@@ -169,21 +156,11 @@ function Page3() {
             >
               上一步
             </Button>
-            <Button
-              variant="contained"
-              startIcon={<NextPlanIcon />}
-              size="large"
-              onClick={() => {
-                if (gender === "" || age === "" || location === "") return
-                if (gender != "") console.log(gender)
-                if (age != "") console.log(age)
-                if (location != "") console.log(location)
-
-                navigate("/page4")
-                let data = {}
-                mutate("postData", () => postData(data))
-              }}
-            >
+            <Button variant="contained" startIcon={<NextPlanIcon/>} size="large" onClick={() => {
+                if(gender === "" || age === "" || location === "") return;
+                
+                navigate('/page4');
+              }}>
               下一步
             </Button>
           </Grid>

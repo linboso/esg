@@ -1,6 +1,7 @@
 import logo from "./logo.svg"
 import { useState } from "react";
 import {Grid, collapseClasses, FormControl, FormLabel,RadioGroup, FormControlLabel, Radio, Button, TextField, Box, Card} from '@mui/material';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
 
 import {
   Chart as ChartJS,
@@ -26,6 +27,9 @@ ChartJS.register(
 
 
 function Page4() {
+  const state = useAppSelector(state => state.wayOfMoving);
+
+
   const data = {
     responsive: false,
     labels: ["腳踏車","機車","捷運","輕軌","汽車","公車","電動摩托車","走路","火車","電動汽車"],
@@ -33,7 +37,7 @@ function Page4() {
     datasets: [
       {
         label: "You daily carbon footprint",
-        data: [0,0,15,0,20,0,0,0,0,0],
+        data: [...state.sum.sumArray[0]],
         backgroundColor: "#1231568F",
         pointBackgroundColor: "#125896",
         borderColor: "#584832",
@@ -105,21 +109,23 @@ function Page4() {
   }
   return (
     <>
-    <Grid container mt={3}>
-    <Grid item xs={1}></Grid>
+    <Grid container mt={10}>
+    <Grid item xs={2}></Grid>
 
-      <Grid item xs={3}>
+      <Grid item xs={4}>
         <Radar data={data} options={option}/>
       </Grid>
       <Grid item xs={4}>
         <Card sx={{
-          height: 100
+          backgroundColor: "#20134560",
+          padding: 10,
+          height: 400
         }}>
-          
+          Something.........................
           
         </Card>
       </Grid>
-      <Grid item xs={4}></Grid>
+      <Grid item xs={2}></Grid>
     </Grid>
     </>
   )

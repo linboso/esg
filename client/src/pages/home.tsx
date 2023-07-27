@@ -7,8 +7,8 @@ import {Grid, collapseClasses, FormControl, FormLabel,RadioGroup, FormControlLab
 
 import Dplace from "../features/Dplace/Dplace";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { updateGoSchool, updateGoHome, udateWeather } from "../slice/womSlice";
-import { clearTmpArray } from "../slice/tmpSlice";
+import { updateGoSchool, updateGoHome, udateWeather, updataSumArray } from "../slice/womSlice";
+import { clearTmpArray, updateClear } from "../slice/tmpSlice";
 
 
 const MainPage:FC = () => {
@@ -18,26 +18,53 @@ const MainPage:FC = () => {
 
   const dispatch = useAppDispatch();
   let navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(state.tmp.list[0]);
-    dispatch(clearTmpArray());
-  },[clearTmpArray]);
-
-
-
+  
   const _updateGoSchool = () => {
     setNext(true);
+
     dispatch(updateGoSchool(state.tmp.list));
+    dispatch(updataSumArray(state.tmp.list));
+    dispatch(updateClear());
+    dispatch(clearTmpArray());
     // console.log(state.tmp.list[0]);
     console.log(form.record.weather + " >> 更新 go school array");
   }
   
   const _updateGoHome = () => {
     dispatch(updateGoHome(state.tmp.list));
+    dispatch(updataSumArray(state.tmp.list));
+    dispatch(updateClear());
+    dispatch(clearTmpArray());
     console.log(form.record.weather  + " >> 更新 go home array");
-    navigate('/page2');
+    if(state.check.check) {
+      navigate('/page3');
+
+    }else{
+      navigate('/page2');
+
+    }
   }
+
+  // useEffect(() => {
+  //   console.log('flag');
+  //   // dispatch(clearTmpArray());
+  // },[_updateGoSchool]);
+  
+  const womType = [[
+    {path: "./pic/bike.png", name: "腳踏車"},
+    {path: "./pic/motor.png", name: "機車"},
+    {path: "./pic/mrt.png", name: "捷運"},
+    {path: "./pic/lighttrain.png", name: "輕軌"},
+    {path: "./pic/car.png", name: "汽車"},
+  ],[
+    {path: "./pic/bus.png", name: "公車"},
+    {path: "./pic/emotor.png", name: "電動摩托車"},
+    {path: "./pic/walk.jpg", name: "走路"},
+    {path: "./pic/train.png", name: "火車"},
+    {path: "./pic/ecar.png", name: "電動汽車"},
+
+  ]]
+
 
   return (
     <div className="App">
@@ -48,23 +75,28 @@ const MainPage:FC = () => {
 
         <Grid item xs={3}></Grid>
         <Grid item mt={3} xs={12}></Grid>
+
         <Grid container item xs={12}>
           <Grid item xs={1}></Grid>
-          <Grid item xs={2}><Dplace picpath="./pic/bike.png" typename="腳踏車" index={0}/></Grid>
-          <Grid item xs={2}><Dplace picpath="./pic/motor.png" typename="機車" index={1}/></Grid>
-          <Grid item xs={2}><Dplace picpath="./pic/mrt.png" typename="捷運" index={2}/></Grid>
-          <Grid item xs={2}><Dplace picpath="./pic/lighttrain.png" typename="輕軌" index={3}/></Grid>
-          <Grid item xs={2}><Dplace picpath="./pic/car.png" typename="汽車" index={4}/></Grid>
+          {
+          Object.values(womType[0]).map((item, index) => (
+              <Grid item xs={2} key={index}>
+                <Dplace picpath={item.path} typename={item.name} index={index} />
+              </Grid>
+            ))
+          }
           <Grid item xs={1}></Grid>
         </Grid>
 
         <Grid container item xs={12}>
           <Grid item xs={1}></Grid>
-          <Grid item xs={2}><Dplace picpath="./pic/bus.png" typename="公車" index={5}/></Grid>
-          <Grid item xs={2}><Dplace picpath="./pic/emotor.png" typename="電動摩托車" index={6}/></Grid>
-          <Grid item xs={2}><Dplace picpath="./pic/walk.jpg" typename="走路" index={7}/></Grid>
-          <Grid item xs={2}><Dplace picpath="./pic/train.png" typename="火車" index={8}/></Grid>
-          <Grid item xs={2}><Dplace picpath="./pic/ecar.png" typename="電動汽車" index={9}/></Grid>
+          {
+          Object.values(womType[1]).map((item, index) => (
+              <Grid item xs={2} key={index}>
+                <Dplace picpath={item.path} typename={item.name} index={index} />
+              </Grid>
+            ))
+          }
           <Grid item xs={1}></Grid>
 
         </Grid>
@@ -81,8 +113,9 @@ const MainPage:FC = () => {
               <Button variant="contained" startIcon={<NextPlanIcon sx={{transform: "rotate(180deg)"}}/>} size="large" sx={{marginRight: 2}}
                 onClick={() => {
                   setNext(false);
+                  dispatch(updateClear());
                 }}
-                >
+              >
                 返回
               </Button>
               <Button variant="contained" startIcon={<NextPlanIcon/>} size="large" onClick={_updateGoHome}>
