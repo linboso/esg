@@ -1,6 +1,18 @@
 import logo from "./logo.svg"
-import { useState } from "react";
-import {Grid, collapseClasses, FormControl, FormLabel,RadioGroup, FormControlLabel, Radio, Button, TextField, Box, Card} from '@mui/material';
+import { useState } from "react"
+import {
+  Grid,
+  collapseClasses,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Button,
+  TextField,
+  Box,
+  Card,
+} from "@mui/material"
 
 import {
   Chart as ChartJS,
@@ -13,7 +25,9 @@ import {
 } from "chart.js"
 
 import { Radar } from "react-chartjs-2"
-// import "chartjs-plugin-dragdata"    // must import this 
+import { useRequestProcessor } from "../hooks/useRequestProcessor"
+import { getData } from "../api"
+// import "chartjs-plugin-dragdata"    // must import this
 
 ChartJS.register(
   RadialLinearScale,
@@ -24,34 +38,42 @@ ChartJS.register(
   Legend,
 )
 
-
 function Page4() {
   const data = {
     responsive: false,
-    labels: ["腳踏車","機車","捷運","輕軌","汽車","公車","電動摩托車","走路","火車","電動汽車"],
+    labels: [
+      "腳踏車",
+      "機車",
+      "捷運",
+      "輕軌",
+      "汽車",
+      "公車",
+      "電動摩托車",
+      "走路",
+      "火車",
+      "電動汽車",
+    ],
     // pointHitRadius: 10,
     datasets: [
       {
         label: "You daily carbon footprint",
-        data: [0,0,15,0,20,0,0,0,0,0],
+        data: [0, 0, 15, 0, 20, 0, 0, 0, 0, 0],
         backgroundColor: "#1231568F",
         pointBackgroundColor: "#125896",
         borderColor: "#584832",
-        pointHoverBorderColor: 'rgb(255, 99, 132)',
+        pointHoverBorderColor: "rgb(255, 99, 132)",
         // lineTension: 0.5,
-        
       },
       {
         label: "Avg Carbon footprint",
-        data: [24,3,5,19,15,18,10,22,15,13],
+        data: [24, 3, 5, 19, 15, 18, 10, 22, 15, 13],
         backgroundColor: "#AB20154F",
         pointBackgroundColor: "#125896",
         borderColor: "#584832",
-        pointHoverBorderColor: 'rgb(255, 99, 132)',
+        pointHoverBorderColor: "rgb(255, 99, 132)",
         // lineTension: 0.5,
-        
       },
-    ]
+    ],
   }
 
   const option = {
@@ -61,25 +83,25 @@ function Page4() {
       },
       datalabels: {
         display: true,
-        color: "white"
-      }
+        color: "white",
+      },
     },
     scales: {
       r: {
         beginAtZero: true,
-        gridLines: {   
+        gridLines: {
           display: true,
           color: "white",
           // lineWidth: 3
         },
         angleLines: {
-          color: "#000000"
+          color: "#000000",
         },
         pointLabels: {
           // display: true,
           font: {
-              size: 15
-          }
+            size: 15,
+          },
         },
         grid: {
           color: "#000000",
@@ -101,26 +123,39 @@ function Page4() {
       line: {
         borderWidth: 2, //結果線的寬度
       },
-    }
+    },
   }
+
+  const { query } = useRequestProcessor()
+
+  const {
+    data: chartData,
+    isLoading,
+    isError,
+  } = query("getData", () => getData(), {
+    enabled: true,
+  })
+
+  console.log({chartData})
+
   return (
     <>
-    <Grid container mt={3}>
-    <Grid item xs={1}></Grid>
+      <Grid container mt={3}>
+        <Grid item xs={1}></Grid>
 
-      <Grid item xs={3}>
-        <Radar data={data} options={option}/>
+        <Grid item xs={3}>
+          <Radar data={data} options={option} />
+        </Grid>
+        <Grid item xs={4}>
+          <Card
+            sx={{
+              height: 100,
+            }}
+          ></Card>
+        </Grid>
+        <Grid item xs={4}>
+        </Grid>
       </Grid>
-      <Grid item xs={4}>
-        <Card sx={{
-          height: 100
-        }}>
-          
-          
-        </Card>
-      </Grid>
-      <Grid item xs={4}></Grid>
-    </Grid>
     </>
   )
 }
