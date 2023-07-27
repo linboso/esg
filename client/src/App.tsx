@@ -18,15 +18,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" Component={() => <Layout/>}> */}
         <Route index Component={() => <MainPage/>}></Route>
         <Route path="/page2" Component={() => <Page2/>}></Route>
         <Route path="/page3" Component={() => <Page3/>}></Route>
         <Route path="/page4" Component={() => <Page4/>}></Route>
-        {/* <Route path="/page3" Component={() => <SettlementPage/>}></Route> */}
-        {/* </Route> */}
-        {/* <Route path="/" element={<MainPage/>}></Route> */}
-
       </Routes>
     </BrowserRouter>
   )

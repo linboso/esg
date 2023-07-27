@@ -4,10 +4,15 @@ import NextPlanIcon from '@mui/icons-material/NextPlan';
 import PublicIcon from '@mui/icons-material/Public';
 import {Grid, Card, CardMedia, FormControl, FormLabel,RadioGroup, FormControlLabel, Radio, Button, TextField, Box, Typography, MenuItem} from '@mui/material';
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { updateCheck } from "../slice/tmpSlice";
 
 function Page2() {
   const [changewom, setChangewom] = useState<string>("");
   const [sure, setSure] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+  // const state = useAppSelector(state => state.TmpArray);
 
   let navigate = useNavigate();
 
@@ -83,7 +88,8 @@ function Page2() {
             </Button>
             <Button variant="contained" startIcon={<NextPlanIcon/>} size="large" onClick={() => {
 
-                if(changewom == "yes"){
+                if(changewom == "yes"){ 
+                  dispatch(updateCheck());
                   navigate('/');
                 }
                 else if(changewom == "no"){

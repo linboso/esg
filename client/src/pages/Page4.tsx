@@ -1,18 +1,7 @@
 import logo from "./logo.svg"
-import { useState } from "react"
-import {
-  Grid,
-  collapseClasses,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Button,
-  TextField,
-  Box,
-  Card,
-} from "@mui/material"
+import { useState } from "react";
+import {Grid, collapseClasses, FormControl, FormLabel,RadioGroup, FormControlLabel, Radio, Button, TextField, Box, Card} from '@mui/material';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
 
 import {
   Chart as ChartJS,
@@ -39,6 +28,9 @@ ChartJS.register(
 )
 
 function Page4() {
+  const state = useAppSelector(state => state.wayOfMoving);
+
+
   const data = {
     responsive: false,
     labels: [
@@ -57,7 +49,7 @@ function Page4() {
     datasets: [
       {
         label: "You daily carbon footprint",
-        data: [0, 0, 15, 0, 20, 0, 0, 0, 0, 0],
+        data: [...state.sum.sumArray[0]],
         backgroundColor: "#1231568F",
         pointBackgroundColor: "#125896",
         borderColor: "#584832",
@@ -65,7 +57,9 @@ function Page4() {
         // lineTension: 0.5,
       },
       {
-        label: "Avg Carbon footprint",
+        label: "Avlhost",
+       "http://localhost:3000",
+       "http://localhost:8000",g Carbon footprint",
         data: [24, 3, 5, 19, 15, 18, 10, 22, 15, 13],
         backgroundColor: "#AB20154F",
         pointBackgroundColor: "#125896",
@@ -75,7 +69,9 @@ function Page4() {
       },
     ],
   }
-
+lhost",
+       "http://localhost:3000",
+       "http://localhost:8000",
   const option = {
     plugins: {
       legend: {
@@ -119,7 +115,9 @@ function Page4() {
     elements: {
       point: {
         radius: 2, // 結果的角度圓點大小
-      },
+      },lhost",
+       "http://localhost:3000",
+       "http://localhost:8000",
       line: {
         borderWidth: 2, //結果線的寬度
       },
@@ -140,22 +138,24 @@ function Page4() {
 
   return (
     <>
-      <Grid container mt={3}>
-        <Grid item xs={1}></Grid>
+    <Grid container mt={10}>
+    <Grid item xs={2}></Grid>
 
-        <Grid item xs={3}>
-          <Radar data={data} options={option} />
-        </Grid>
-        <Grid item xs={4}>
-          <Card
-            sx={{
-              height: 100,
-            }}
-          ></Card>
-        </Grid>
-        <Grid item xs={4}>
-        </Grid>
+      <Grid item xs={4}>
+        <Radar data={data} options={option}/>
       </Grid>
+      <Grid item xs={4}>
+        <Card sx={{
+          backgroundColor: "#20134560",
+          padding: 10,
+          height: 400
+        }}>
+          Something.........................
+          
+        </Card>
+      </Grid>
+      <Grid item xs={2}></Grid>
+    </Grid>
     </>
   )
 }

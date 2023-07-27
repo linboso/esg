@@ -4,6 +4,12 @@ const initialState = {
   tmp: {
     list: [Array(10).fill(0)]
   }, 
+  check: {
+    check: false,
+  },
+  clear: {
+    check: false,
+  }
 }
 
 const TmpArraySlice = createSlice({
@@ -18,12 +24,23 @@ const TmpArraySlice = createSlice({
     clearTmpArray(state) {
       state.tmp.list[0] = [...Array(10).fill(0)];
       // console.log(state.tmp.list);
+    },
+    updateCheck(state) {
+      state.check.check = true;
+    },
+    updateClear(state) {
+      if(state.clear.check) {
+        state.clear.check = false;
+      } else {
+        state.clear.check = true;
+      }
     }
+
   }
 })
 
 
 
-export const { updateTmpArray, clearTmpArray } = TmpArraySlice.actions;
+export const { updateTmpArray, clearTmpArray, updateCheck, updateClear} = TmpArraySlice.actions;
 export default TmpArraySlice.reducer;
 
