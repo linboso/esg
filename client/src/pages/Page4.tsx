@@ -57,21 +57,17 @@ function Page4() {
         // lineTension: 0.5,
       },
       {
-        label: "Avlhost",
-       "http://localhost:3000",
-       "http://localhost:8000",g Carbon footprint",
-        data: [24, 3, 5, 19, 15, 18, 10, 22, 15, 13],
+        label: "Avg Carbon footprint",
+        data: [24,3,5,19,15,18,10,22,15,13],
         backgroundColor: "#AB20154F",
         pointBackgroundColor: "#125896",
         borderColor: "#584832",
-        pointHoverBorderColor: "rgb(255, 99, 132)",
+        pointHoverBorderColor: 'rgb(255, 99, 132)',
         // lineTension: 0.5,
-      },
+      }
     ],
   }
-lhost",
-       "http://localhost:3000",
-       "http://localhost:8000",
+
   const option = {
     plugins: {
       legend: {
@@ -115,9 +111,7 @@ lhost",
     elements: {
       point: {
         radius: 2, // 結果的角度圓點大小
-      },lhost",
-       "http://localhost:3000",
-       "http://localhost:8000",
+      },
       line: {
         borderWidth: 2, //結果線的寬度
       },
