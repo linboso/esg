@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, type FC, useRef, useEffect } from "react"
  
 import Box from '@mui/material/Box';
-import {Paper, Grid, Slider, Card, CardMedia, Typography} from '@mui/material';
+import {Paper, Grid, Button, Card, Stack, Typography} from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 
@@ -24,7 +24,17 @@ const SelectList: FC<{Title:string}> = ({Title}) => {
           height: "100%",
           backgroundColor: "#D9D9D9",
         }}>
-           <span>Home</span>
+          <Box ml={3} pt={3}>
+           <Typography>Home</Typography>
+            <Stack direction="row">
+              {/* <Button onClick={handleSave}> */}
+                {/* Save */}
+              {/* </Button> */}
+
+            </Stack>
+           <Typography>walk</Typography>
+           <Typography>School</Typography>
+          </Box>
         </Paper>
       </Box>
   );

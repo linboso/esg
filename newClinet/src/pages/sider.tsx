@@ -1,5 +1,5 @@
 import logo from "./logo.svg"
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {Grid, Box, Card, Paper, Typography} from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 
@@ -14,6 +14,7 @@ import {
 } from "chart.js"
 
 import { Radar } from "react-chartjs-2"
+import { SumCarbonVolume } from "../slice/womSlice";
 
 ChartJS.register(
   RadialLinearScale,
@@ -26,91 +27,35 @@ ChartJS.register(
 
 
 function Sider() {
+  const [fontSize, setFontSize] = useState(300);
+  const [text, setText] = useState(20);
+  const state = useAppSelector(state => state.wayOfMoving);
+  const dispatch = useAppDispatch();
 
-  const data = {
-    responsive: false,
-    labels: [
-      "腳踏車",
-      "機車",
-      "捷運",
-      "輕軌",
-      "汽車",
-      "公車",
-      "電動摩托車",
-      "走路",
-      "火車",
-      "電動汽車",
-    ],
-    // pointHitRadius: 10,
-    datasets: [
-      {
-        label: "You daily carbon footprint",
-        // data: [...state.sum.sumArray[0]],
-        data: [24,3,0,0,0,0,0,22,0,13],
-        backgroundColor: "#cae2408f",
-        pointBackgroundColor: "#125896",
-        borderColor: "#584832",
-        pointHoverBorderColor: "rgb(255, 99, 132)",
-        // lineTension: 0.5,
-      },
-      {
-        label: "Avg Carbon footprint",
-        // data: [...state.sum.sumArray[0]],
-        data: [17,10,25,33,8,18,10,22,15,45],
-        backgroundColor: "#1bb38d8f",
-        pointBackgroundColor: "#125896",
-        borderColor: "#584832",
-        // lineTension: 0.5,
-      },
-    ],
-  }
+  useEffect(() => {
+    dispatch(SumCarbonVolume());
+    // updateFontSize(String());
+    updateFontSize(String(Math.floor(state.sum.CarbonVolume)));
 
-  const option = {
-    plugins: {
-      legend: {
-        display: true,
-      },
-      datalabels: {
-        display: true,
-        color: "white",
-      },
+  },[state])
+
+  const updateFontSize = useCallback(
+    (value) => {
+      let _text = String(text);
+      if (_text.length > value.length) {
+        const textSize = Math.ceil(fontSize * 1.5);
+        fontSize < 300 && setFontSize(textSize);
+
+      } else if (_text.length < value.length) {
+        const textSize = Math.ceil(fontSize / 1.5);
+        fontSize > 50 && setFontSize(textSize);
+      }
+      setText(value);
+      console.log(fontSize);
     },
-    scales: {
-      r: {
-        beginAtZero: true,
-        gridLines: {
-          display: true,
-          color: "white",
-        },
-        angleLines: {
-          color: "#000000",
-        },
-        pointLabels: {
-          font: {
-            size: 15,
-          },
-        },
-        grid: {
-          color: "#000000",
-          circular: true,
-        },
-        ticks: {
-          display: true,
-        },
-        suggestedMin: -10,
-        suggestedMax: 60,
-        stepSize: 1,
-      },
-    },
-    elements: {
-      point: {
-        radius: 2, // 結果的角度圓點大小
-      },
-      line: {
-        borderWidth: 2, //結果線的寬度
-      },
-    },
-  }
+    [fontSize, text]
+  );
+
   return (
     <>
       <Box sx={{
@@ -123,19 +68,27 @@ function Sider() {
         <Paper
           elevation={4}  
           sx={{
+            // backgroundColor: "#254874",
             width: 540,
             height: 520,
             display: "flex",
             flexDirection: "column",
         }}>
-           <Typography variant="h6" fontWeight="bold" m={3}>Your Carbon Footprint</Typography>
+           <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Your Carbon Footprint</Typography>
            <Box 
             sx={{
               width: "80%",
+              height: "80%",
+              // backgroundColor: "#25743d",
               alignSelf: "center",
+              justifySelf: "center",
+              // display: "flex",
+              margin: 5
             }}>
-            {/* <Radar data={data} options={option}/> */}
-            48
+            
+              <Typography fontSize={fontSize} fontWeight="bold" sx={{textJustify:"center", textAlign:"center"}}>
+                {text}
+              </Typography>
            </Box>
         </Paper>
       </Box>

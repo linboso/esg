@@ -4,29 +4,26 @@ const initialState = {
   Userinfo: {
     gender: "",
     age: "",
-    location: "", 
+    school: "", 
   },
   
 }
 
-const wayOfMovingSlice = createSlice({
-  name: "wayOfMovingSlice",
+const InfoSlice = createSlice({
+  name: "InfoSlice",
   initialState: initialState,
   reducers: {
-    updateGoSchool(state, action) {
-      state.Userinfo.gender = action.payload;
+    updateInfo(state, action) {
+      state.Userinfo.school = action.payload[0];
+      state.Userinfo.gender = action.payload[1];
+      state.Userinfo.age = action.payload[2];
     },
-    // updateGoHome(state, action) {
-    //   state.record.goHome[0] = [...action.payload[0]];
-    // },
-    // udateWeather(state, action) {
-    //   state.record.weather = action.payload;
-    // }
+
   }
 })
 
 
 
-// export const { updateGoSchool, updateGoHome, udateWeather } = wayOfMovingSlice.actions;
-// export default wayOfMovingSlice.reducer;
+export const { updateInfo } = InfoSlice.actions;
+export default InfoSlice.reducer;
 

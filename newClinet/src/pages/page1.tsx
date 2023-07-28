@@ -4,8 +4,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {Grid, Card, InputLabel, FormControl, Select, Paper, Box, MenuItem, TextField, Typography, IconButton} from '@mui/material';
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { updateCheck } from "../slice/tmpSlice";
-
+import { updateInfo } from "../slice/infoSlice";
 
 
 const names = [
@@ -23,14 +22,19 @@ const names = [
 
 
 function Page1() {
-  const [personName, setPersonName] = useState<string[]>([]);
-  const [schoolName, setSchoolName] = useState<string>("北一女");
+  const [schoolName, setSchoolName] = useState<string>("Carlos Abbott");
   const [select_gender, setSelect_gender] = useState<string>("female");
+  const [age, setAge] = useState<string>('16');
 
   const dispatch = useAppDispatch();
   let navigate = useNavigate();
 
   const checkInfo = () => {
+    // console.log(schoolName + " / " + select_gender + " / " + age);
+    if(schoolName == "" && select_gender == "" && age == "") {
+      alert("Please fill in corrects informance");
+    }
+    dispatch(updateInfo([schoolName, select_gender, age]));
     navigate('/page2');
   }
 
@@ -48,7 +52,6 @@ function Page1() {
             backgroundColor: "#F5F5F5",
         }}>
           <Grid container sx={{
-            // backgroundColor: "#30290560",
             display: "flex",
           }}>
             <Grid item xs={12}>
@@ -61,15 +64,13 @@ function Page1() {
               <FormControl sx={{ marginLeft: 3, marginTop: 2, minWidth: 360, maxWidth: 400  }}>
                 <InputLabel>School </InputLabel>
                 <Select
-                  multiple
-                  value={personName}
-                  // onChange={handleChange}
+                  value={schoolName}
+                  onChange={(item) => {setSchoolName(item.target.value)}}
                 >
                   {names.map((name) => (
                     <MenuItem
                       key={name}
                       value={name}
-                      
                     >
                       {name}
                     </MenuItem>
@@ -102,6 +103,8 @@ function Page1() {
                   shrink: true,
                 }}
                 sx={{marginLeft: 3, marginTop: 2, minWidth: 360, maxWidth: 400}}
+                value={age}
+                onChange={(item) => {setAge(item.target.value)}}
               />
             </Grid>
 

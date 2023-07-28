@@ -8,7 +8,7 @@ import Page1 from "./pages/page1";
 import Page2 from "./pages/page2";
 import Page3 from "./pages/page3";
 import Page4 from "./pages/Page4"
-
+import Page5 from "./pages/page5";
 
 import "./App.css"
 
@@ -22,6 +22,7 @@ function App() {
           <Route path="/page2" Component={() => <Page2/>}></Route>
           <Route path="/page3" Component={() => <Page3/>}></Route>
           <Route path="/page4" Component={() => <Page4/>}></Route>
+          <Route path="/page5" Component={() => <Page5/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
