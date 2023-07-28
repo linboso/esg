@@ -20,8 +20,8 @@ function App() {
         <Route path="/" element={<Layout/>}>
           <Route index Component={() => <Page1/>}></Route>
           <Route path="/page2" Component={() => <Page2/>}></Route>
-          {/* <Route path="/page3" Component={() => <Page3/>}></Route> */}
-          {/* <Route path="/page4" Component={() => <Page4/>}></Route> */}
+          <Route path="/page3" Component={() => <Page3/>}></Route>
+          <Route path="/page4" Component={() => <Page4/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -12,7 +12,7 @@ function Footer() {
   return (
     <>
       <Box sx={{
-        backgroundColor: "#2b557c",
+        // backgroundColor: "#2b557c",
         display: "flex",
         width: "100%",
         height: 106,

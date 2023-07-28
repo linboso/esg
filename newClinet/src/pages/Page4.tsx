@@ -1,31 +1,36 @@
 import logo from "./logo.svg"
 import { useState } from "react";
-import {Grid, collapseClasses, FormControl, FormLabel,RadioGroup, FormControlLabel, Radio, Button, TextField, Box, Card} from '@mui/material';
+import {Grid, CardActionArea, Typography, Paper, Radio, Button, TextField, Box, Card} from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { getData } from "../api"
 
 import {
   Chart as ChartJS,
-  RadialLinearScale,
+  LinearScale,
+  CategoryScale,
+  BarElement,
   PointElement,
   LineElement,
-  Filler,
-  Tooltip,
   Legend,
-} from "chart.js"
-
-import { Radar } from "react-chartjs-2"
-import { useRequestProcessor } from "../hooks/useRequestProcessor"
-import { getData } from "../api"
-// import "chartjs-plugin-dragdata"    // must import this
+  Tooltip,
+  LineController,
+  BarController,
+} from 'chart.js';
+import { Chart } from 'react-chartjs-2';
 
 ChartJS.register(
-  RadialLinearScale,
+  LinearScale,
+  CategoryScale,
+  BarElement,
   PointElement,
   LineElement,
-  Filler,
-  Tooltip,
   Legend,
-)
+  Tooltip,
+  LineController,
+  BarController
+);
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 function Page4() {
   const state = useAppSelector(state => state.wayOfMoving);
@@ -48,22 +53,16 @@ function Page4() {
     // pointHitRadius: 10,
     datasets: [
       {
+        // type: 'line' as const,
         label: "You daily carbon footprint",
-        data: [...state.sum.sumArray[0]],
-        backgroundColor: "#1231568F",
-        pointBackgroundColor: "#125896",
-        borderColor: "#584832",
-        pointHoverBorderColor: "rgb(255, 99, 132)",
-        // lineTension: 0.5,
+        data: [5,5,3,0,0,0,0,0,0],
+        // data: [...state.sum.sumArray[0]],
+        backgroundColor: "#474747",
       },
       {
         label: "Avg Carbon footprint",
         data: [24,3,5,19,15,18,10,22,15,13],
-        backgroundColor: "#AB20154F",
-        pointBackgroundColor: "#125896",
-        borderColor: "#584832",
-        pointHoverBorderColor: 'rgb(255, 99, 132)',
-        // lineTension: 0.5,
+        backgroundColor: "#4C72D2",
       }
     ],
   }
@@ -118,40 +117,55 @@ function Page4() {
     },
   }
 
-  const { query } = useRequestProcessor()
+  // const { query } = useRequestProcessor()
 
-  const {
-    data: chartData,
-    isLoading,
-    isError,
-  } = query("getData", () => getData(), {
-    enabled: true,
-  })
+  // const {
+  //   data: chartData,
+  //   isLoading,
+  //   isError,
+  // } = query("getData", () => getData(), {
+  //   enabled: true,
+  // })
 
-  console.log({chartData})
+  // console.log({chartData})
 
   return (
     <>
-    <Grid container mt={10}>
-    <Grid item xs={2}></Grid>
-
-      <Grid item xs={4}>
-        <Radar data={data} options={option}/>
-      </Grid>
-      <Grid item xs={4}>
-        <Card sx={{
-          backgroundColor: "#20134560",
-          padding: 10,
-          height: 400
+    <Box sx={{
+        // backgroundColor: "#d9e09a",
+        padding: 7, 
+      }}>
+        <Paper
+          elevation={4}  
+          sx={{
+            width: 1100,
+            height: 520,
+            backgroundColor: "#F5F5F5",
         }}>
-          Something.........................
-          
-        </Card>
-      </Grid>
-      <Grid item xs={2}></Grid>
-    </Grid>
+          <Grid container direction="column">
+            <Grid item container xs={12} sx={{
+              // backgroundColor: "#895134",
+              flexDirection: "column"
+            }}>
+              <Box sx={{
+                // backgroundColor: "#865497",
+                paddingTop: 6,
+                width: 800,
+                alignSelf: "center"
+              }}>
+                <Chart type='bar' data={data} />
+              </Box>
+            </Grid>
+
+
+          </Grid>
+        </Paper>
+      </Box>
+
+
+
     </>
   )
 }
-
+// <Chart type='bar' data={data} />
 export default Page4

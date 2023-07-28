@@ -12,15 +12,15 @@ function Header() {
   return (
     <>
       <Box sx={{
-        backgroundColor: "#3d9dbb",
-        height: 120,
+        // backgroundColor: "#3d9dbb",
+        height: 80,
         padding: 8
       }}>
         <Typography variant="h4" fontWeight="bold">My Travel Diary</Typography>
-        <Typography variant="h5" sx={{
+        <Typography fontSize={18} sx={{
           marginTop: 2,
           width: 800, 
-          height: 100,
+          height: 80,
         }}>
           This platform introduces the commute carbon footprint survey conducted by City Science Lab@Taipei Tech, aimed at assessing and addressing the environmental impact of daily commuting habits within the city.
         </Typography>

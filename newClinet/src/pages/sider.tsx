@@ -1,6 +1,6 @@
 import logo from "./logo.svg"
 import { useState } from "react";
-import {Grid, Box, Card, Paper} from '@mui/material';
+import {Grid, Box, Card, Paper, Typography} from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 
 import {
@@ -123,11 +123,20 @@ function Sider() {
         <Paper
           elevation={4}  
           sx={{
-            width: 520,
+            width: 540,
             height: 520,
+            display: "flex",
+            flexDirection: "column",
         }}>
-          
-          <Radar data={data} options={option}/>
+           <Typography variant="h6" fontWeight="bold" m={3}>Your Carbon Footprint</Typography>
+           <Box 
+            sx={{
+              width: "80%",
+              alignSelf: "center",
+            }}>
+            {/* <Radar data={data} options={option}/> */}
+            48
+           </Box>
         </Paper>
       </Box>
     </>
