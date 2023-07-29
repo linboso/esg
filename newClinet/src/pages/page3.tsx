@@ -2,22 +2,26 @@ import { useNavigate, Link} from "react-router-dom";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {Grid, Paper, Card, CardActionArea, Button, Box, CardMedia, CardContent, Typography, IconButton} from '@mui/material';
 import { useState } from "react";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 import SelectList from "../features/SelectList/SelectList";
+import { updateGoHome, updateGoSchool } from "../slice/womSlice";
 
 
 
 function Page3() {
+  const state = useAppSelector(state => state.wayOfMoving.record);
   const dispatch = useAppDispatch();
   let navigate = useNavigate();
 
   const next = () => {
+    dispatch(updateGoHome(["rain", state.sunny.goHome]))
+    dispatch(updateGoSchool(["rain", state.sunny.goSchool]))
     navigate('/page4');
   }
 
   const goback = () => {
-    navigate('/page2');
+    navigate('/page5');
   }
 
   return (
