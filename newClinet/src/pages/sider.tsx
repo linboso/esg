@@ -15,6 +15,7 @@ import {
 
 import { Radar } from "react-chartjs-2"
 import { SumCarbonVolume } from "../slice/womSlice";
+import { useLocation } from "react-router-dom";
 
 ChartJS.register(
   RadialLinearScale,
@@ -32,9 +33,12 @@ function Sider() {
   const state = useAppSelector(state => state.wayOfMoving);
   const dispatch = useAppDispatch();
 
+  const avg = 1248;
+  const finalPage = useLocation().pathname  === "/page4" ? true : false;
+
+
   useEffect(() => {
     dispatch(SumCarbonVolume());
-    // updateFontSize(String());
     updateFontSize(String(Math.floor(state.sum.CarbonVolume)));
 
   },[state])
@@ -74,7 +78,11 @@ function Sider() {
             display: "flex",
             flexDirection: "column",
         }}>
-           <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Your Carbon Footprint</Typography>
+          {finalPage? 
+          <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Comparison Eemissions ppkg</Typography>
+          :
+          <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Your Carbon Footprint</Typography>
+          }
            <Box 
             sx={{
               width: "80%",
@@ -82,13 +90,47 @@ function Sider() {
               // backgroundColor: "#25743d",
               alignSelf: "center",
               justifySelf: "center",
-              // display: "flex",
+              display: "absolute",
               margin: 5
             }}>
-            
+              {finalPage ?
+              <>
+                <Typography variant="h1" fontWeight="bold" 
+                  sx={{
+                    height: "20%",
+                    marginLeft: "11%",
+                    marginTop: "20%",
+                    color: "#474747",
+                    // backgroundColor: "#942895"
+                    }} >
+                  {text} 
+                </Typography>
+                <Typography variant="h3" fontWeight="bold" 
+                  sx={{
+                    // backgroundColor: "#432346", 
+                    // color: "#474747",
+                    height: "20%",
+                    marginLeft: "60%", 
+                    marginTop: "-9%",
+                  }}>
+                    /
+                </Typography>
+                <Typography variant="h3" fontWeight="bold" 
+                  sx={{
+                    // backgroundColor: "#d018e0", 
+                    color: "#4C72D2",
+                    height: "20%",
+                    marginLeft: "64%", 
+                    marginTop: "-18%",
+                  }}>
+                    {avg}
+                </Typography>
+              </> 
+              :
               <Typography fontSize={fontSize} fontWeight="bold" sx={{textJustify:"center", textAlign:"center"}}>
                 {text}
               </Typography>
+              }
            </Box>
         </Paper>
       </Box>
