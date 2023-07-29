@@ -28,7 +28,7 @@ ChartJS.register(
 
 function Sider() {
   const [fontSize, setFontSize] = useState(300);
-  const [text, setText] = useState(20);
+  const [text, setText] = useState("20");
   const state = useAppSelector(state => state.wayOfMoving);
   const dispatch = useAppDispatch();
 
@@ -40,7 +40,7 @@ function Sider() {
   },[state])
 
   const updateFontSize = useCallback(
-    (value) => {
+    (value:string) => {
       let _text = String(text);
       if (_text.length > value.length) {
         const textSize = Math.ceil(fontSize * 1.5);
@@ -51,7 +51,7 @@ function Sider() {
         fontSize > 50 && setFontSize(textSize);
       }
       setText(value);
-      console.log(fontSize);
+      // console.log(fontSize);
     },
     [fontSize, text]
   );

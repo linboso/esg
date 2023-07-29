@@ -1,5 +1,5 @@
 import logo from "./logo.svg"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {Grid, CardActionArea, Typography, Paper, Radio, Button, TextField, Box, Card} from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getData } from "../api"
@@ -17,6 +17,7 @@ import {
   BarController,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
+import { TotalCarbomArray } from "../slice/womSlice";
 
 ChartJS.register(
   LinearScale,
@@ -30,17 +31,21 @@ ChartJS.register(
   BarController
 );
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
 
 function Page4() {
   const state = useAppSelector(state => state.wayOfMoving);
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    dispatch(TotalCarbomArray());  
+  }, [state.sum.CarbonVolume]);
 
   const data = {
     responsive: false,
     labels: [
       "腳踏車",
-      "機車",
+      "摩托車",
       "捷運",
       "輕軌",
       "汽車",
@@ -55,13 +60,12 @@ function Page4() {
       {
         // type: 'line' as const,
         label: "You daily carbon footprint",
-        data: [5,5,3,0,0,0,0,0,0],
-        // data: [...state.sum.sumArray[0]],
+        data: [...state.sum.CarbonArray],
         backgroundColor: "#474747",
       },
       {
         label: "Avg Carbon footprint",
-        data: [24,3,5,19,15,18,10,22,15,13],
+        data: [50,870,450,0,648,765,50,0,354,156],
         backgroundColor: "#4C72D2",
       }
     ],
@@ -73,48 +77,20 @@ function Page4() {
         display: true,
       },
       datalabels: {
-        display: true,
-        color: "white",
+        display: false,
+        color: "black",
       },
     },
     scales: {
-      r: {
-        beginAtZero: true,
-        gridLines: {
-          display: true,
-          color: "white",
-          // lineWidth: 3
-        },
-        angleLines: {
-          color: "#000000",
-        },
-        pointLabels: {
-          // display: true,
-          font: {
-            size: 15,
-          },
-        },
-        grid: {
-          color: "#000000",
-          circular: true,
-        },
-        ticks: {
-          display: true,
-          // color: "#555555",
-        },
-        suggestedMin: -10,
-        suggestedMax: 60,
-        stepSize: 1,
-      },
-    },
-    elements: {
-      point: {
-        radius: 2, // 結果的角度圓點大小
-      },
-      line: {
-        borderWidth: 2, //結果線的寬度
-      },
-    },
+      y: {
+        ticks:{
+          callback: function(value:string, index:number, ticks:any) {
+            return value + " g/min";
+          }
+
+        }
+      }
+    }
   }
 
   // const { query } = useRequestProcessor()
@@ -153,7 +129,7 @@ function Page4() {
                 width: 800,
                 alignSelf: "center"
               }}>
-                <Chart type='bar' data={data} />
+                <Chart type='bar' data={data} options={option}/>
               </Box>
             </Grid>
 

@@ -2,14 +2,16 @@ import { useNavigate, Link} from "react-router-dom";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {Grid, Paper, FormControl, Select, Button, Box, MenuItem, TextField, Typography, IconButton} from '@mui/material';
 import { useState } from "react";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 import SelectList from "../features/SelectList/SelectList";
+import { updateGoHome, updateGoSchool } from "../slice/womSlice";
 
 
 
 function Page2() {
-  const dispatch = useAppDispatch();
+  const state = useAppSelector(state => state.wayOfMoving);
+  // const dispatch = useAppDispatch();
   let navigate = useNavigate();
   const next = () => {
     navigate('/page3');
@@ -45,7 +47,7 @@ function Page2() {
                 // width: "100%", 
                 // backgroundColor:"#8dd48f"
               }}>
-                <SelectList Title={"平時上學的通勤狀況"}/>
+                <SelectList Title={"平時上學的通勤狀況"} Weather="sunny" Go="school"/>
               </Grid>
             </Grid>
             <Grid item container xs={6} direction="column" mt={3}>
@@ -53,7 +55,7 @@ function Page2() {
                 alignSelf: "center",
                 // backgroundColor:"#dbd82a"
               }}>
-                <SelectList Title={"平時放學的通勤狀況"}/>
+                <SelectList Title={"平時放學的通勤狀況"} Weather="sunny" Go="home"/>
               </Grid>
             </Grid>
 

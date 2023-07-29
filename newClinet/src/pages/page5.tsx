@@ -45,7 +45,7 @@ function Page5() {
                 // width: "100%", 
                 // backgroundColor:"#8dd48f"
               }}>
-                <SelectList Title={"雨天時上學的通勤狀況"}/>
+                <SelectList Title={"雨天時上學的通勤狀況"} Weather="rain" Go="school"/>
               </Grid>
             </Grid>
             <Grid item container xs={6} direction="column" mt={3}>
@@ -53,11 +53,11 @@ function Page5() {
                 alignSelf: "center",
                 // backgroundColor:"#dbd82a"
               }}>
-                <SelectList Title={"雨天時放學的通勤狀況"}/>
+                <SelectList Title={"雨天時放學的通勤狀況"} Weather="rain" Go="home"/>
               </Grid>
             </Grid>
 
-            {/* <Grid item xs={12} m={2}>s</Grid> */}
+
             <Grid item sx={{
               width: "100%",
               display: "flex",
