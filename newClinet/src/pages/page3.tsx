@@ -6,18 +6,30 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 import SelectList from "../features/SelectList/SelectList";
 import { updateGoHome, updateGoSchool } from "../slice/womSlice";
-
-
+import { postData } from "../api/index";
+import { useMutation } from "react-query"
 
 function Page3() {
-  const state = useAppSelector(state => state.wayOfMoving.record);
+  const state = useAppSelector(state => state.wayOfMoving.record);  
+  const {Userinfo} = useAppSelector(state => state.InfoSlice)
   const dispatch = useAppDispatch();
+  const mutation = useMutation(async(DATA: any) => {
+    await postData(DATA);
+  });
   let navigate = useNavigate();
 
   const next = () => {
     dispatch(updateGoHome(["rain", state.sunny.goHome]))
-    dispatch(updateGoSchool(["rain", state.sunny.goSchool]))
-    navigate('/page4');
+    dispatch(updateGoSchool(["rain", state.sunny.goSchool]))    
+    
+    const payloadHome = state.sunny.goHome
+    const payloadSchool = state.sunny.goSchool
+
+    // pre two are sunny case, and past two are rain case
+    // @TODO - should have a erorr handling for axios call error
+    mutation.mutate({'info': Userinfo, 'data': {'sunnyHome': payloadHome, 'sunnySchool': payloadSchool, 'rainHome': payloadHome, 'rainSchool': payloadSchool}})
+
+    navigate('/page4');    
   }
 
   const goback = () => {

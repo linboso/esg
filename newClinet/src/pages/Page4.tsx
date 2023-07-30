@@ -18,6 +18,7 @@ import {
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 import { TotalCarbomArray } from "../slice/womSlice";
+import { useRequestProcessor } from "../hooks/useRequestProcessor";
 
 ChartJS.register(
   LinearScale,
@@ -40,6 +41,16 @@ function Page4() {
   useEffect(() => {
     dispatch(TotalCarbomArray());  
   }, [state.sum.CarbonVolume]);
+
+  const { query } = useRequestProcessor()
+
+  const {
+    data: chartData,
+    isLoading,
+    isError,
+  } = query("getData", () => getData(), {
+    enabled: true,
+  })
 
   const data = {
     responsive: false,
@@ -65,7 +76,7 @@ function Page4() {
       },
       {
         label: "Avg Carbon footprint",
-        data: [50,870,450,0,648,765,50,0,354,156],
+        data: chartData?.res ?? [],
         backgroundColor: "#4C72D2",
       }
     ],
@@ -91,19 +102,7 @@ function Page4() {
         }
       }
     }
-  }
-
-  // const { query } = useRequestProcessor()
-
-  // const {
-  //   data: chartData,
-  //   isLoading,
-  //   isError,
-  // } = query("getData", () => getData(), {
-  //   enabled: true,
-  // })
-
-  // console.log({chartData})
+  } 
 
   return (
     <>
