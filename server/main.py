@@ -53,10 +53,9 @@ def create_data(payload: Dict[Any, Any]) -> dict:
 def read_data():
     res = []
     columns = ['bike', 'scooter', 'mrt', 'light_rail', 'car', 'bus', 'e_scooter', 'walk', 'train', 'e_car']
-    df = pd.read_csv('data.csv', usecols=columns)
-    # print(df)
+    df = pd.read_csv('data.csv', usecols=columns)    
     avg_per_column = df.mean()
-    res = avg_per_column.astype(int).tolist()
+    res = avg_per_column.tolist()
     
     return {"res": res}
 

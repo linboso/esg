@@ -11,12 +11,12 @@ import { useMutation } from "react-query"
 
 function Page3() {
   const state = useAppSelector(state => state.wayOfMoving.record);  
-  const {Userinfo} = useAppSelector(state => state.InfoSlice)
+  const { Userinfo } = useAppSelector(state => state.InfoSlice)
   const dispatch = useAppDispatch();
-  const mutation = useMutation(async(DATA: any) => {
-    await postData(DATA);
-  });
   let navigate = useNavigate();
+  const mutation = useMutation(async(payload: unknown) => {
+    await postData(payload);
+  });
 
   const next = () => {
     dispatch(updateGoHome(["rain", state.sunny.goHome]))

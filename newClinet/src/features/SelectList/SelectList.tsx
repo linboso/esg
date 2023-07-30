@@ -13,21 +13,18 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { SumCarbonVolume, updateGoHome, updateGoSchool } from '../../slice/womSlice';
 
-
-
-
+interface SelectItem {
+  id: number;
+  text: string;
+};
 
 const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weather, Go}) => {
   const [selectItems, setSelectItems] = useState<SelectItem[]>([]);
   const [textItems, setTextItems] = useState<SelectItem[]>([]);
   const [rowVaule, setRowValue] = useState<number[]>([...Array(10).fill(0)]);
-  const [rowTime, setRowTime] = useState<number[]>([...Array(10).fill(0)]);
+  const [rowTime, setRowTime] = useState<number[]>([...Array(10).fill(0)]);  
 
-  const dispatch = useAppDispatch();
-  interface SelectItem {
-    id: number;
-    text: string;
-  };
+  const dispatch = useAppDispatch();  
 
   const RowData = [
     "腳踏車",
@@ -41,7 +38,6 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
     "火車",
     "電動汽車",
   ]
-  
 
   const handleClick = () => {
     if(selectItems.length >= 10) {
