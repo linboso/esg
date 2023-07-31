@@ -19,7 +19,7 @@ function Footer() {
         flexDirection: "column",
         marginTop: -2.5
       }}>
-        <img src="../../pic/footer.png" style={{
+        <img src="../../pubilc/footer.png" style={{
           alignSelf: "flex-end",
           height: 100,
 
