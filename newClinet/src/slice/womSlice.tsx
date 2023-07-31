@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   record: {
     sunny: {
-      goSchool: [50,0,0,0,0,14,0,13,0,0],
+      // goSchool: [50,0,0,0,0,14,0,13,0,0],
+      goSchool: [...Array(10).fill(0)],
       goHome: [...Array(10).fill(0)], 
     },
     rain: {
