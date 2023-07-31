@@ -21,6 +21,7 @@ import {
 import { Chart } from 'react-chartjs-2';
 import { TotalCarbomArray } from "../slice/womSlice";
 import { useRequestProcessor } from "../hooks/useRequestProcessor";
+import { useNavigate } from "react-router-dom";
 
 ChartJS.register(
   LinearScale,
@@ -39,12 +40,18 @@ ChartJS.register(
 function Page4() {
   const state = useAppSelector(state => state.wayOfMoving);
   const dispatch = useAppDispatch();
+  let navigate = useNavigate();
+
 
   useEffect(() => {
     dispatch(TotalCarbomArray());  
   }, [state.sum.CarbonVolume]);
 
-  const { query } = useRequestProcessor()
+  const back = () => {
+    navigate(-1);
+  }
+  
+  const { query } = useRequestProcessor();
 
   const {
     data: chartData,
@@ -141,12 +148,11 @@ function Page4() {
             }}>
 
               <div style={{borderWidth: 1, borderStyle: "solid", borderColor: "#505050", borderRadius: 5, width: 50, height: 30, marginTop: 32, marginRight: 16, alignSelf: "flex-end", transform: "rotate(180deg)"}}>            
-                <IconButton size="large" sx={{width: 50, height: 30,}} > 
+                <IconButton size="large" sx={{width: 50, height: 30,}} onClick={back}> 
                   <ArrowForwardIosIcon/>
                 </IconButton>
               </div>
             </Grid>
-
           </Grid>
         </Paper>
       </Box>
