@@ -1,8 +1,9 @@
 from typing import Union
-
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
+import numpy as np
 
 import pandas as pd
 
@@ -53,12 +54,13 @@ def create_data(payload: Dict[Any, Any]) -> dict:
 def read_data():
     res = []
     columns = ['bike', 'scooter', 'mrt', 'light_rail', 'car', 'bus', 'e_scooter', 'walk', 'train', 'e_car']
-    df = pd.read_csv('data.csv', usecols=columns)    
-    avg_per_column = df.mean()
-    res = avg_per_column.tolist()
-    
-    return {"res": res}
+    df = pd.read_csv('data.csv', usecols=columns)
+    # df = df.fillna(0)    
+    avg_per_column = df.astype(float).replace(0, np.nan).mean().dropna()
+
+    return {"res": avg_per_column.tolist()}
 
 if __name__ == "__main__":    
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", debug=True)
