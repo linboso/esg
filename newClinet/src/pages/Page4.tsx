@@ -1,6 +1,8 @@
 import logo from "./logo.svg"
 import { useEffect, useState } from "react";
-import {Grid, CardActionArea, Typography, Paper, Radio, Button, TextField, Box, Card} from '@mui/material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
+import {Grid, IconButton, Typography, Paper, Radio, Button, TextField, Box, Card} from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getData } from "../api"
 
@@ -81,6 +83,7 @@ function Page4() {
       }
     ],
   }
+  
 
   const option = {
     plugins: {
@@ -98,7 +101,6 @@ function Page4() {
           callback: function(value:string, index:number, ticks:any) {
             return value + " g/min";
           }
-
         }
       }
     }
@@ -131,7 +133,19 @@ function Page4() {
                 <Chart type='bar' data={data} options={option}/>
               </Box>
             </Grid>
+            <Grid item sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              // backgroundColor: "#513497"
+            }}>
 
+              <div style={{borderWidth: 1, borderStyle: "solid", borderColor: "#505050", borderRadius: 5, width: 50, height: 30, marginTop: 32, marginRight: 16, alignSelf: "flex-end", transform: "rotate(180deg)"}}>            
+                <IconButton size="large" sx={{width: 50, height: 30,}} > 
+                  <ArrowForwardIosIcon/>
+                </IconButton>
+              </div>
+            </Grid>
 
           </Grid>
         </Paper>

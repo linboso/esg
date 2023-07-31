@@ -21,6 +21,7 @@ function Page3() {
   const next = () => {
     dispatch(updateGoHome(["rain", state.sunny.goHome]))
     dispatch(updateGoSchool(["rain", state.sunny.goSchool]))    
+    // console.log(state);
     
     const payloadHome = state.sunny.goHome
     const payloadSchool = state.sunny.goSchool
