@@ -30,7 +30,7 @@ ChartJS.register(
 
 
 function Sider() {
-  const [fontSize, setFontSize] = useState(300);
+  const [fontSize, setFontSize] = useState(150);
   const [text, setText] = useState("20");
   const weight: number[] = [5.25, 85.82, 18.08, 40.83, 173.53, 70, 16.8, 0, 54.67, 38.86];
   const state = useAppSelector(state => state.wayOfMoving);
@@ -48,6 +48,7 @@ function Sider() {
   const dot = (a: number[], b: number[]) => a.map((x, i) => a[i] * b[i]).reduce((m, n) => m + n).toFixed();  
 
   const avg = chartData ? dot(chartData.res, weight) : null;
+  const firstPage = useLocation().pathname  === "/" ? true : false;
   const finalPage = useLocation().pathname  === "/page4" ? true : false;
 
 
@@ -62,7 +63,7 @@ function Sider() {
       let _text = String(text);
       if (_text.length > value.length) {
         const textSize = Math.ceil(fontSize * 1.5);
-        fontSize < 300 && setFontSize(textSize);
+        fontSize < 200 && setFontSize(textSize);
 
       } else if (_text.length < value.length) {
         const textSize = Math.ceil(fontSize / 1.5);
@@ -93,15 +94,15 @@ function Sider() {
             flexDirection: "column",
         }}>
           {finalPage? 
-          <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Comparison Eemissions ppkg</Typography>
-          :
-          <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Your Carbon Footprint</Typography>
+            <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Comparison Eemissions ppkg</Typography>
+            :
+            <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Your Carbon Footprint</Typography>
           }
            <Box 
             sx={{
               width: "80%",
               height: "80%",
-              // backgroundColor: "#25743d",
+              // backgroundColor: "#48db74",
               alignSelf: "center",
               justifySelf: "center",
               display: "absolute",
@@ -115,13 +116,13 @@ function Sider() {
                     marginLeft: "11%",
                     marginTop: "20%",
                     color: "#474747",
-                    // backgroundColor: "#942895"
+                    // backgroundColor: "#1657cf"
                     }} >
                   {text} 
                 </Typography>
                 <Typography variant="h3" fontWeight="bold" 
                   sx={{
-                    // backgroundColor: "#432346", 
+                    // backgroundColor: "#ae21bb", 
                     // color: "#474747",
                     height: "20%",
                     marginLeft: "60%", 
@@ -137,13 +138,34 @@ function Sider() {
                     marginLeft: "64%", 
                     marginTop: "-18%",
                   }}>
-                    {avg}
+                    {avg}  
                 </Typography>
+                
               </> 
               :
-              <Typography fontSize={fontSize} fontWeight="bold" sx={{textJustify:"center", textAlign:"center"}}>
-                {text}
-              </Typography>
+              firstPage? 
+                <img src="../../pubilc/hall.png" style={{
+                  alignSelf: "flex-end",
+                  height: "90%",
+                  padding: 20,
+                  marginTop: -20
+                }}/>  
+              
+              :
+              <>
+                <Typography fontSize={fontSize} fontWeight="bold" sx={{
+                    textJustify:"center", 
+                    textAlign:"center",
+                    // backgroundColor: "#c918da", 
+                    height: '100%',
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems:'center'
+                  }}>
+                  {text}  <span style={{fontSize: 40, marginLeft: 3}}>g/min</span>
+                </Typography>
+                
+              </>
               }
            </Box>
         </Paper>

@@ -22,9 +22,7 @@ function Footer() {
         <img src="../../pubilc/footer.png" style={{
           alignSelf: "flex-end",
           height: 100,
-
           paddingRight: 20,
-          // paddingTop: 20
         }}/>
       </Box>
     </>

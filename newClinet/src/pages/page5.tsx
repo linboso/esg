@@ -23,10 +23,7 @@ function Page5() {
   const { Userinfo } = useAppSelector((state) => state.InfoSlice)
   const dispatch = useAppDispatch()
   const mutation = useMutation(async (payload: unknown) => {
-    await postData(payload)
-
-
-    
+    await postData(payload)    
   })
 
   let navigate = useNavigate()

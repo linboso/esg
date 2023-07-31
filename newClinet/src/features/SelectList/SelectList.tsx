@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import {Paper, Grid, List, Typography, Stack,Icon,IconButton} from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import AddIcon from '@mui/icons-material/Add';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -18,9 +19,9 @@ interface SelectItem {
   text: string;
 };
 
+let TmpselectItems:SelectItem[] = [];
 const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weather, Go}) => {
   const [selectItems, setSelectItems] = useState<SelectItem[]>([]);
-  const [textItems, setTextItems] = useState<SelectItem[]>([]);
   const [rowVaule, setRowValue] = useState<number[]>([...Array(10).fill(0)]);
   const [rowTime, setRowTime] = useState<number[]>([...Array(10).fill(0)]);  
 
@@ -39,23 +40,34 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
     "電動汽車",
   ]
 
+  
+
   const handleClick = () => {
     if(selectItems.length >= 10) {
       alert("selected too many cummiting way!");
       return;
     }
+      
+    TmpselectItems.push({ text: "new row", id: selectItems.length + 1 });
+    console.log(TmpselectItems);
+
     setSelectItems(prevSelectItems => [
       ...prevSelectItems,
-      { text: "new row", id: prevSelectItems.length + 1 }
+      { text: "new row1", id: prevSelectItems.length + 1 }
     ]);
 
-    setTextItems(prevTextItems => [
-      ...prevTextItems,
-      { text: "new row", id: prevTextItems.length + 1 }
-    ]);
   };
 
+  const remove = () => {
+    if(selectItems.length <= 0) {
+      alert("remove too manty cummiting way!");
+      return;
+    }
 
+    TmpselectItems.pop();
+    setSelectItems(preSelect => [...TmpselectItems]);
+  };
+  
   return(
     <>
       <Box sx={{
@@ -137,6 +149,9 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
 
               <IconButton onClick={handleClick}>
                 <AddIcon/>
+              </IconButton>
+              <IconButton onClick={remove}>
+                <RemoveCircleOutlineIcon/>
               </IconButton>
           </List>
         </Paper>
