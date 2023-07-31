@@ -2,7 +2,7 @@ import logo from "./logo.svg"
 import { useCallback, useEffect, useState } from "react";
 import {Grid, Box, Card, Paper, Typography} from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-
+import { NumericFormat } from 'react-number-format';
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -30,7 +30,7 @@ ChartJS.register(
 
 
 function Sider() {
-  const [fontSize, setFontSize] = useState(150);
+  const [fontSize, setFontSize] = useState(200);
   const [text, setText] = useState("20");
   const weight: number[] = [5.25, 85.82, 18.08, 40.83, 173.53, 70, 16.8, 0, 54.67, 38.86];
   const state = useAppSelector(state => state.wayOfMoving);
@@ -55,22 +55,23 @@ function Sider() {
   useEffect(() => {
     dispatch(SumCarbonVolume());
     updateFontSize(String(Math.floor(state.sum.CarbonVolume)));
+    // updateFontSize("125");
+    // setText("1230")
+    // updateFontSize("10000");
 
   },[state])
 
   const updateFontSize = useCallback(
     (value:string) => {
-      let _text = String(text);
-      if (_text.length > value.length) {
-        const textSize = Math.ceil(fontSize * 1.5);
-        fontSize < 200 && setFontSize(textSize);
+      if (value.length  == 5) {
+        setFontSize(68);
 
-      } else if (_text.length < value.length) {
-        const textSize = Math.ceil(fontSize / 1.5);
-        fontSize > 50 && setFontSize(textSize);
+      } else if (value.length  == 4) {
+        setFontSize(83);
+      } else if (value.length == 3) {
+        setFontSize(115);
       }
       setText(value);
-      // console.log(fontSize);
     },
     [fontSize, text]
   );
@@ -94,7 +95,7 @@ function Sider() {
             flexDirection: "column",
         }}>
           {finalPage? 
-            <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Comparison Eemissions ppkg</Typography>
+            <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Comparison Emissions ppg</Typography>
             :
             <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Your Carbon Footprint</Typography>
           }
@@ -110,15 +111,17 @@ function Sider() {
             }}>
               {finalPage ?
               <>
-                <Typography variant="h1" fontWeight="bold" 
+                <Typography fontSize={fontSize} fontWeight="bold" 
                   sx={{
                     height: "20%",
                     marginLeft: "11%",
                     marginTop: "20%",
                     color: "#474747",
-                    // backgroundColor: "#1657cf"
+                    // backgroundColor: "#678ed6",
+                    maxWidth: 250
                     }} >
-                  {text} 
+                  {/* {text}  */}
+                  <NumericFormat value={text} thousandSeparator="," displayType="text"/>
                 </Typography>
                 <Typography variant="h3" fontWeight="bold" 
                   sx={{
@@ -138,7 +141,8 @@ function Sider() {
                     marginLeft: "64%", 
                     marginTop: "-18%",
                   }}>
-                    {avg}  
+                    <NumericFormat value={avg} thousandSeparator="," displayType="text"/> 
+                    {/* 9999 */}
                 </Typography>
                 
               </> 
@@ -162,7 +166,8 @@ function Sider() {
                     justifyContent:'center',
                     alignItems:'center'
                   }}>
-                  {text}  <span style={{fontSize: 40, marginLeft: 3}}>g/min</span>
+                  <NumericFormat value={text} thousandSeparator="," displayType="text"/>
+                  <span style={{fontSize: 40, marginLeft: 3}}>g/min</span>
                 </Typography>
                 
               </>

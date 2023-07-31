@@ -139,7 +139,8 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
                       label="time"
                       type='number'
                       sx={{ maxWidth: 100 }}
-                      value={rowTime[rowVaule[RowIndex]]}
+                      // defaultValue={0}
+                      value={String(rowTime[rowVaule[RowIndex]])}
                       InputProps={{
                         endAdornment: <InputAdornment position="end">min</InputAdornment>,
                       }}
@@ -148,7 +149,7 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
                         let tmp = rowTime;
                         let inputval = Number(item.target.value);
                         if (inputval >= 60 )  inputval = 60;
-                        if (inputval <= 0 ) inputval = 0;
+                        if (inputval <= 0 )  inputval = 0;
 
                         tmp[rowVaule[RowIndex]] = inputval;
                         setRowTime(tmp);

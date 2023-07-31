@@ -16,7 +16,7 @@ const Layout = () => {
       <Grid item container xs={12} direction="row" sx={{
         height: "100%"
       }}>
-        <Grid item xs={8}>
+        <Grid item xs={7.6}>
           <Outlet />
         </Grid>
         <Grid item xs={4}>

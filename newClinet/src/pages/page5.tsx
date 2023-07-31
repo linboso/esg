@@ -46,7 +46,7 @@ function Page5() {
         c[1]++;
     }
     if (c[0] == 10 || c[1] == 10) {
-      alert("you need to fill in informace at both side!");
+      alert("You need to fill in information at both side!");
       return;
     }
 
