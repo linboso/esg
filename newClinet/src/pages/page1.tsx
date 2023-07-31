@@ -66,6 +66,7 @@ function Page1() {
               <FormControl sx={{ marginLeft: 3, marginTop: 2, minWidth: 360, maxWidth: 400  }}>
                 <InputLabel>School </InputLabel>
                 <Select
+                  label='School'
                   value={schoolName}
                   onChange={(item) => {setSchoolName(item.target.value)}}
                 >
@@ -85,6 +86,7 @@ function Page1() {
               <FormControl sx={{ marginLeft: 3, marginTop: 2, minWidth: 360, maxWidth: 400}}>
                 <InputLabel>Gender</InputLabel>
                 <Select
+                  label="Gender"
                   value={select_gender}
                   onChange={(item) => {
                     setSelect_gender(item.target.value)

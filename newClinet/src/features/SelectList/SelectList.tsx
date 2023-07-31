@@ -80,7 +80,7 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
       dispatch(updateGoHome([Weather, rowTime]))
     }
   };
-  
+
   return(
     <>
       <Box sx={{
@@ -137,16 +137,18 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
                       {/* 4. 使用textItems來渲染TextField */}
                     <TextField
                       label="time"
+                      type='number'
                       sx={{ maxWidth: 100 }}
-                      defaultValue={0}
                       value={rowTime[rowVaule[RowIndex]]}
                       InputProps={{
                         endAdornment: <InputAdornment position="end">min</InputAdornment>,
                       }}
+                      onWheel={(event) => {event.currentTarget.querySelector('input')?.blur();}}
                       onChange={(item) => {
                         let tmp = rowTime;
                         let inputval = Number(item.target.value);
                         if (inputval >= 60 )  inputval = 60;
+                        if (inputval <= 0 ) inputval = 0;
 
                         tmp[rowVaule[RowIndex]] = inputval;
                         setRowTime(tmp);
