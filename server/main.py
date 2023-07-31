@@ -6,6 +6,9 @@ from starlette.responses import RedirectResponse
 
 import pandas as pd
 
+from typing import Dict, Any, List
+import csv   
+
 app = FastAPI()
 
 origins = [
@@ -13,7 +16,7 @@ origins = [
        "http://localhost:3000",
        "http://localhost:8000",
        "http://localhost:8080",
-       "http://localhost:5174",
+       "http://localhost:5173",
    ]
 
 app.add_middleware(
@@ -34,27 +37,27 @@ def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
 @app.post("/data")
-def create_data(data) -> dict:
-    print(data)
+def create_data(payload: Dict[Any, Any]) -> dict:
+    info, data = payload['info'], payload['data']
+    age, gender, school = info['age'], info['gender'], info['school']    
+    
+    for k, v in data.items():            
+        with open(r'data.csv', 'a') as f:
+            fields=[k, age, gender, school, *data[k]]
+            writer = csv.writer(f)
+            writer.writerow(fields)
+
     return {"res": "ok"}
 
 @app.get("/chart")
 def read_data():
     res = []
-    df = pd.read_csv('data.csv')
-    for i, v in df.iterrows():
-        tmp = {}
-        trans = []
-        tmp['gender'] = v['gender']
-        tmp['location'] = v['location']
-        trans.append(v['bike'])
-        trans.append(v['motor'])
-        trans.append(v['e_motor'])
-        tmp['trans'] = trans
-        res.append(tmp)
-
+    columns = ['bike', 'scooter', 'mrt', 'light_rail', 'car', 'bus', 'e_scooter', 'walk', 'train', 'e_car']
+    df = pd.read_csv('data.csv', usecols=columns)    
+    avg_per_column = df.mean()
+    res = avg_per_column.tolist()
+    
     return {"res": res}
 
-if __name__ == "__main__":
-    # uvicorn.run(app, debug=True)
+if __name__ == "__main__":    
     uvicorn.run(app, host="0.0.0.0", debug=True)

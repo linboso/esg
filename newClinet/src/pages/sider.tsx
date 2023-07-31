@@ -16,6 +16,8 @@ import {
 import { Radar } from "react-chartjs-2"
 import { SumCarbonVolume } from "../slice/womSlice";
 import { useLocation } from "react-router-dom";
+import { useRequestProcessor } from "../hooks/useRequestProcessor";
+import { getData } from "../api/index";
 
 ChartJS.register(
   RadialLinearScale,
@@ -32,8 +34,20 @@ function Sider() {
   const [text, setText] = useState("20");
   const state = useAppSelector(state => state.wayOfMoving);
   const dispatch = useAppDispatch();
+  const weight: number[] = [5.25, 85.82, 18.08, 40.83, 173.53, 70, 16.8, 0, 54.67, 38.86];
+  const { query } = useRequestProcessor()
 
-  const avg = 1248;
+  const {
+    data: chartData,
+    isLoading,
+    isError,
+  } = query("getData", () => getData(), {
+    enabled: true,
+  })
+
+  const dot = (a: number[], b: number[]) => a.map((x, i) => a[i] * b[i]).reduce((m, n) => m + n).toFixed();  
+
+  const avg = chartData ? dot(chartData.res, weight) : null;
   const finalPage = useLocation().pathname  === "/page4" ? true : false;
 
 

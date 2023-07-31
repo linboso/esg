@@ -1,17 +1,32 @@
 import { useNavigate, Link} from "react-router-dom";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {Grid, Paper, FormControl, Select, Button, Box, MenuItem, TextField, Typography, IconButton} from '@mui/material';
-import { useState } from "react";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { postData } from "../api/index";
+import { useMutation } from "react-query"
 
 import SelectList from "../features/SelectList/SelectList";
 
-
-
 function Page5() {
+  const state = useAppSelector(state => state.wayOfMoving.record);
+  const { Userinfo } = useAppSelector(state => state.InfoSlice)
   const dispatch = useAppDispatch();
+  const mutation = useMutation(async(payload: unknown) => {
+    await postData(payload);
+  });
+
   let navigate = useNavigate();
+
   const next = () => {
+    const payloadRainHome = state.rain.goHome
+    const payloadRainSchool = state.rain.goSchool
+    const payloadSunnyHome = state.sunny.goHome
+    const payloadSunnySchool = state.sunny.goSchool
+
+    // pre two are sunny case, and past two are rain case
+    // @TODO - should have a erorr handling for axios call error
+    mutation.mutate({'info': Userinfo, 'data': {'sunnyHome': payloadSunnyHome, 'sunnySchool': payloadSunnySchool, 'rainHome': payloadRainHome, 'rainSchool': payloadRainSchool}})
+
     navigate('/page4');
   }
 
