@@ -139,12 +139,16 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
                       label="time"
                       sx={{ maxWidth: 100 }}
                       defaultValue={0}
+                      value={rowTime[rowVaule[RowIndex]]}
                       InputProps={{
                         endAdornment: <InputAdornment position="end">min</InputAdornment>,
                       }}
                       onChange={(item) => {
                         let tmp = rowTime;
-                        tmp[rowVaule[RowIndex]] = Number(item.target.value);
+                        let inputval = Number(item.target.value);
+                        if (inputval >= 60 )  inputval = 60;
+
+                        tmp[rowVaule[RowIndex]] = inputval;
                         setRowTime(tmp);
                         if(Go == "school") {
                           dispatch(updateGoSchool([Weather, tmp]))

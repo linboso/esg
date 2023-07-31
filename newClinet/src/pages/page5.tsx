@@ -17,6 +17,8 @@ import { postData } from "../api/index"
 import { useMutation } from "react-query"
 
 import SelectList from "../features/SelectList/SelectList"
+import { useEffect } from "react"
+import { SumCarbonVolume, updateGoHome, updateGoSchool } from "../slice/womSlice"
 
 function Page5() {
   const state = useAppSelector((state) => state.wayOfMoving.record)
@@ -28,7 +30,27 @@ function Page5() {
 
   let navigate = useNavigate()
 
+  useEffect(() => {
+    dispatch(updateGoHome(['rain', [...Array(10).fill(0)]]));
+    dispatch(updateGoSchool(['rain', [...Array(10).fill(0)]]));
+    // dispatch(SumCarbonVolume());
+  }, [])
+
+
   const next = () => {
+    let c:number[] = [0,0];
+    for(let i=0; i< 10; i++){
+      if(state.rain.goHome[i] == 0) 
+        c[0]++;
+      if(state.rain.goSchool[i] == 0)
+        c[1]++;
+    }
+    if (c[0] == 10 || c[1] == 10) {
+      alert("you need to fill in informace at both side!");
+      return;
+    }
+
+
     const payloadRainHome = state.rain.goHome
     const payloadRainSchool = state.rain.goSchool
     const payloadSunnyHome = state.sunny.goHome
@@ -46,11 +68,13 @@ function Page5() {
       },
     })
 
-    navigate("/page4")
+    navigate("/page4");
   }
 
   const back = () => {
-    navigate("/page3")
+    dispatch(updateGoHome(['rain', [...Array(10).fill(0)]]));
+    dispatch(updateGoSchool(['rain', [...Array(10).fill(0)]]));
+    navigate("/page3");
   }
 
   return (

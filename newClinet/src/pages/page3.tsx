@@ -37,6 +37,11 @@ function Page3() {
     navigate('/page5');
   }
 
+  const back = () => {
+    navigate('/page2');
+
+  }
+
   return (
     <>
       <Box sx={{
@@ -95,7 +100,19 @@ function Page3() {
               {/* <Grid item xs={3}></Grid> */}
               <Grid item xs={3}></Grid>
             </Grid>
+            <Grid item sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              // backgroundColor: "#513497"
+            }}>
 
+              <div style={{borderWidth: 1, borderStyle: "solid", borderColor: "#505050", borderRadius: 5, width: 50, height: 30, marginTop: 164, marginRight: 16, alignSelf: "flex-end", transform: "rotate(180deg)"}}>            
+                <IconButton size="large" sx={{width: 50, height: 30,}} onClick={back}> 
+                  <ArrowForwardIosIcon/>
+                </IconButton>
+              </div>
+            </Grid>
           </Grid>
         </Paper>
       </Box>

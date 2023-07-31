@@ -1,7 +1,7 @@
 import { useNavigate, Link} from "react-router-dom";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {Grid, Paper, FormControl, Box, Typography, IconButton} from '@mui/material';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 import SelectList from "../features/SelectList/SelectList";
@@ -11,9 +11,27 @@ import { updateGoHome, updateGoSchool } from "../slice/womSlice";
 
 function Page2() {
   const state = useAppSelector(state => state.wayOfMoving);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   let navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(updateGoHome(['sunny', [...Array(10).fill(0)]]));
+    dispatch(updateGoSchool(['sunny', [...Array(10).fill(0)]]));
+  }, []);
+
+
   const next = () => {
+    let c:number[] = [0,0];
+    for(let i=0; i< 10; i++){
+      if(state.record.sunny.goHome[i] == 0) 
+        c[0]++;
+      if(state.record.sunny.goSchool[i] == 0)
+        c[1]++;
+    }
+    if (c[0] == 10 || c[1] == 10) {
+      alert("you need to fill in informace at both side!");
+      return;
+    }
     navigate('/page3');
   }
 
