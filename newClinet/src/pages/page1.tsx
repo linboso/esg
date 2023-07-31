@@ -24,7 +24,7 @@ const schools = [
 
 
 function Page1() {
-  const [schoolName, setSchoolName] = useState<string>("Carlos Abbott");
+  const [schoolName, setSchoolName] = useState<string>("其他（非高中）");
   const [select_gender, setSelect_gender] = useState<string>("female");
   const [age, setAge] = useState<string>('16');
 
