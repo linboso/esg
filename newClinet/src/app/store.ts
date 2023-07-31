@@ -13,7 +13,7 @@ export const store = configureStore({
     getDefaultMiddleware({ thunk: false, serializableCheck: false })
       // .concat(sagaMiddleware, socketMiddleware)
       // .concat(routerMiddleware)
-      .concat(logger),
+      // .concat(logger),
 })
 
 export type AppDispatch = typeof store.dispatch

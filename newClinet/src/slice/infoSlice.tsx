@@ -1,13 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
+import uuid from "react-uuid";
+
 
 const initialState = {
   Userinfo: {
     gender: "",
     age: "",
     school: "", 
+    uuid: uuid(),
   },
-  
 }
+
+console.log(initialState.Userinfo.uuid);
 
 const InfoSlice = createSlice({
   name: "InfoSlice",

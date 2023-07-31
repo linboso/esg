@@ -19,8 +19,9 @@ interface SelectItem {
   text: string;
 };
 
-let TmpselectItems:SelectItem[] = [];
+let TmpselectItems:any = [];
 const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weather, Go}) => {
+
   const [selectItems, setSelectItems] = useState<SelectItem[]>([]);
   const [rowVaule, setRowValue] = useState<number[]>([...Array(10).fill(0)]);
   const [rowTime, setRowTime] = useState<number[]>([...Array(10).fill(0)]);  
@@ -48,12 +49,12 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
       return;
     }
       
-    TmpselectItems.push({ text: "new row", id: selectItems.length + 1 });
-    console.log(TmpselectItems);
+    TmpselectItems.push({ text: "new row", id: selectItems.length + 1});
+    // console.log(TmpselectItems);
 
     setSelectItems(prevSelectItems => [
       ...prevSelectItems,
-      { text: "new row1", id: prevSelectItems.length + 1 }
+      { text: "new row1", id: prevSelectItems.length + 1}
     ]);
 
   };
@@ -66,6 +67,18 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
 
     TmpselectItems.pop();
     setSelectItems(preSelect => [...TmpselectItems]);
+     
+    const t = rowVaule[TmpselectItems.length];
+    // get finish row => val
+    rowTime[t] = 0;
+    // reset
+
+
+    if(Go == "school") {
+      dispatch(updateGoSchool([Weather, rowTime]))
+    } else {
+      dispatch(updateGoHome([Weather, rowTime]))
+    }
   };
   
   return(
@@ -83,7 +96,7 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
         }}>
             <List sx={{ width: '100%', maxHeight: 315, bgcolor: 'background.paper', overflowY: "auto" }}>
               {/* 3. 使用selectItems來渲染select */}
-              {selectItems.map((item, RowIndex) => (
+              {selectItems.map((SelectItem, RowIndex) => (
                 <Grid container key={RowIndex} mt={1}>
                   <Grid item xs={8}>
                     <FormControl fullWidth>
@@ -93,7 +106,6 @@ const SelectList: FC<{Title:string, Weather:string, Go:string}> = ({Title, Weath
                         defaultValue={0}
                         value={rowVaule[RowIndex]}
                         sx={{ color: '#282c34',backgroundColor:'#f0f0f0', width: 200, marginLeft: 1}}
-                        // onChange={handleChage}
                         onChange={(item) => {
                           // console.log(RowIndex + " <> " + item.target.value);
                           // console.log(RowData[rowVaule[RowIndex]]);
