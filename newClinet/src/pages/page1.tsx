@@ -7,17 +7,19 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { updateInfo } from "../slice/infoSlice";
 
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
+const schools = [
+  '竹圍高中',
+  '新北高中',
+  '中崙高中',
+  '和平高中',
+  '南湖高中',
+  '慈濟高中',
+  '復旦高中',
+  '鹿港高中',
+  '臺灣師範大學附屬高中',
+  '北大高中',
+  '萬方高中',
+  '其他（非高中）',
 ];
 
 
@@ -67,7 +69,7 @@ function Page1() {
                   value={schoolName}
                   onChange={(item) => {setSchoolName(item.target.value)}}
                 >
-                  {names.map((name) => (
+                  {schools.map((name) => (
                     <MenuItem
                       key={name}
                       value={name}

@@ -32,9 +32,9 @@ ChartJS.register(
 function Sider() {
   const [fontSize, setFontSize] = useState(300);
   const [text, setText] = useState("20");
+  const weight: number[] = [5.25, 85.82, 18.08, 40.83, 173.53, 70, 16.8, 0, 54.67, 38.86];
   const state = useAppSelector(state => state.wayOfMoving);
   const dispatch = useAppDispatch();
-  const weight: number[] = [5.25, 85.82, 18.08, 40.83, 173.53, 70, 16.8, 0, 54.67, 38.86];
   const { query } = useRequestProcessor()
 
   const {
