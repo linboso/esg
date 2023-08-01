@@ -13,11 +13,12 @@ import csv
 app = FastAPI()
 
 origins = [
-       "http://localhost",
-       "http://localhost:3000",
-       "http://localhost:8000",
-       "http://localhost:8080",
-       "http://localhost:5173",
+    #    "http://localhost",
+    #    "http://localhost:3000",
+    #    "http://localhost:8000",
+    #    "http://localhost:8080",
+    #    "http://localhost:5173",
+       "https://cityscope.csltaipeitech.com",
    ]
 
 app.add_middleware(
@@ -40,11 +41,12 @@ def read_item(item_id: int, q: Union[str, None] = None):
 @app.post("/data")
 def create_data(payload: Dict[Any, Any]) -> dict:
     info, data = payload['info'], payload['data']
-    age, gender, school = info['age'], info['gender'], info['school']    
+    print(info)
+    id, age, gender, school = info['uuid'], info['age'], info['gender'], info['school']    
     
     for k, v in data.items():            
-        with open(r'data.csv', 'a') as f:
-            fields=[k, age, gender, school, *data[k]]
+        with open(r'./data.csv', 'a') as f:
+            fields=[id, k, age, gender, school, *data[k]]
             writer = csv.writer(f)
             writer.writerow(fields)
 
@@ -55,10 +57,16 @@ def read_data():
     res = []
     columns = ['bike', 'scooter', 'mrt', 'light_rail', 'car', 'bus', 'e_scooter', 'walk', 'train', 'e_car']
     df = pd.read_csv('data.csv', usecols=columns)
-    # df = df.fillna(0)    
-    avg_per_column = df.astype(float).replace(0, np.nan).mean().dropna()
-
-    return {"res": avg_per_column.tolist()}
+    weight = [5.25, 85.82, 18.08, 40.83, 173.53, 70, 16.8, 0, 54.67, 38.86]
+    
+    df.fillna(0)
+    print(df)
+    np_table = df.to_numpy()
+    t = [np.sum(np_table[:,i]) / np.count_nonzero(np_table[:,i]) if np.sum(np_table[:,i]) >0  else 0 for i in range(10)]
+    t2 = [t[i] * weight[i] for i in range(10)] 
+    print(t)
+    print(t2)
+    return {"res": t2, "res2": t}
 
 if __name__ == "__main__":    
     import uvicorn

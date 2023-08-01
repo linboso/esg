@@ -85,7 +85,7 @@ function Page4() {
       },
       {
         label: "Avg Carbon footprint",
-        data: chartData?.res ?? [],
+        data: (chartData as any)?.res ?? [],
         backgroundColor: "#4C72D2",
       }
     ],
@@ -106,12 +106,12 @@ function Page4() {
       y: {
         ticks:{
           callback: function(value:string, index:number, ticks:any) {
-            return value + " g/min";
+            return value + " g-CO2";
           }
         }
       }
     }
-  } 
+  } as const 
 
   return (
     <>
@@ -137,7 +137,7 @@ function Page4() {
                 width: 800,
                 alignSelf: "center"
               }}>
-                <Chart type='bar' data={data} options={option}/>
+                <Chart type='bar' data={data} options={option as any}/>
               </Box>
             </Grid>
             <Grid item sx={{

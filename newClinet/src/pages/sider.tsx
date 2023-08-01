@@ -47,7 +47,7 @@ function Sider() {
 
   const dot = (a: number[], b: number[]) => a.map((x, i) => a[i] * b[i]).reduce((m, n) => m + n).toFixed();  
 
-  const avg = chartData ? dot(chartData.res, weight) : null;
+  const avg = chartData ? dot((chartData as any).res2, weight) : null;
   const firstPage = useLocation().pathname  === "/" ? true : false;
   const finalPage = useLocation().pathname  === "/page4" ? true : false;
 
@@ -95,7 +95,7 @@ function Sider() {
             flexDirection: "column",
         }}>
           {finalPage? 
-            <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Comparison Emissions ppg</Typography>
+            <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Comparison Emissions Kg-CO2</Typography>
             :
             <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>Your Carbon Footprint</Typography>
           }
@@ -121,7 +121,7 @@ function Sider() {
                     maxWidth: 250
                     }} >
                   {/* {text}  */}
-                  <NumericFormat value={text} thousandSeparator="," displayType="text"/>
+                  <NumericFormat value={(Number(text)/1000).toFixed(1)} thousandSeparator="," displayType="text"/>
                 </Typography>
                 <Typography variant="h3" fontWeight="bold" 
                   sx={{
@@ -141,14 +141,14 @@ function Sider() {
                     marginLeft: "64%", 
                     marginTop: "-18%",
                   }}>
-                    <NumericFormat value={avg} thousandSeparator="," displayType="text"/> 
+                    <NumericFormat value={(Number(avg)/1000).toFixed(1)} thousandSeparator="," displayType="text"/> 
                     {/* 9999 */}
                 </Typography>
                 
               </> 
               :
               firstPage? 
-                <img src="../../pubilc/hall.png" style={{
+                <img src="/hall.png" style={{
                   alignSelf: "flex-end",
                   height: "90%",
                   padding: 20,
@@ -166,8 +166,9 @@ function Sider() {
                     justifyContent:'center',
                     alignItems:'center'
                   }}>
-                  <NumericFormat value={text} thousandSeparator="," displayType="text"/>
-                  <span style={{fontSize: 40, marginLeft: 3}}>g/min</span>
+                  <NumericFormat value={(Number(text)/1000).toFixed(1)} thousandSeparator="," displayType="text" />
+                  {/* <NumericFormat value={Number(text)*1000} thousandSeparator="," displayType="text" /> */}
+                  <span style={{fontSize: 40, marginLeft: 3}}>Kg-CO2</span>
                 </Typography>
                 
               </>

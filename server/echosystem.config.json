@@ -1,0 +1,15 @@
+{
+	"apps": [
+	  {
+		"name": "esg_dashboard_api",
+		"script": "bin/run_server.sh",
+		"args": [],
+		"exec_mode": "fork",
+		"instances": "2",
+		"wait_ready": true,
+		"autorestart": false,
+		"max_restarts": 5,
+		"interpreter": "bash"
+	  }
+	]
+}
