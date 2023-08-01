@@ -54,19 +54,26 @@ def create_data(payload: Dict[Any, Any]) -> dict:
 
 @app.get("/chart")
 def read_data():
-    res = []
+
     columns = ['bike', 'scooter', 'mrt', 'light_rail', 'car', 'bus', 'e_scooter', 'walk', 'train', 'e_car']
     df = pd.read_csv('data.csv', usecols=columns)
-    weight = [5.25, 85.82, 18.08, 40.83, 173.53, 70, 16.8, 0, 54.67, 38.86]
-    
+
+
     df.fillna(0)
-    print(df)
     np_table = df.to_numpy()
-    t = [np.sum(np_table[:,i]) / np.count_nonzero(np_table[:,i]) if np.sum(np_table[:,i]) >0  else 0 for i in range(10)]
-    t2 = [t[i] * weight[i] for i in range(10)] 
-    print(t)
-    print(t2)
-    return {"res": t2, "res2": t}
+
+    t = [np.sum(np_table[:,i])/ np.count_nonzero(np_table[:,i]) if np.sum(np_table[:,i]) != 0 else 0  for i in range(10)]
+    w = [5.25, 85.82, 18.08, 40.83, 173.53, 70, 16.8, 0, 54.67, 38.86]
+    t2 = [t[i] * w[i] for i in range(10)]
+    t3 = [np.count_nonzero(np_table[:,i]) for i in range(10)]
+    # print('===============')
+    # print(t)
+    # print('===============')
+    # print(t2)
+
+
+    return {"res": t2, "res2": t, "res3": t3}
+
 
 if __name__ == "__main__":    
     import uvicorn

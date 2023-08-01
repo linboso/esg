@@ -18,7 +18,7 @@ import {
   LineController,
   BarController,
 } from 'chart.js';
-import { Chart } from 'react-chartjs-2';
+import { Chart, Bar } from 'react-chartjs-2';
 import { TotalCarbomArray } from "../slice/womSlice";
 import { useRequestProcessor } from "../hooks/useRequestProcessor";
 import { useNavigate } from "react-router-dom";
@@ -82,15 +82,25 @@ function Page4() {
         label: "You daily carbon footprint",
         data: [...state.sum.CarbonArray],
         backgroundColor: "#474747",
+        yAxisID: 'y',
       },
       {
         label: "Avg Carbon footprint",
         data: (chartData as any)?.res ?? [],
         backgroundColor: "#4C72D2",
+        yAxisID: 'y',
+
+      },
+      {
+        type: 'line' as const,
+        label: "Traffic usage",
+        data: chartData?.res3 ?? [...Array(10).fill(0)],
+        backgroundColor: "#20d8b9",
+        yAxisID: 'y2',
+
       }
     ],
   }
-  
 
   const option = {
     plugins: {
@@ -104,12 +114,17 @@ function Page4() {
     },
     scales: {
       y: {
+        position: 'left',
         ticks:{
           callback: function(value:string, index:number, ticks:any) {
             return value + " g-CO2";
           }
-        }
-      }
+        },
+      },
+      y2: {
+        type: 'linear',
+        position: 'right',
+      },
     }
   } as const 
 

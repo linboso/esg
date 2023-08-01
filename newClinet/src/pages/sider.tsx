@@ -47,7 +47,9 @@ function Sider() {
 
   const dot = (a: number[], b: number[]) => a.map((x, i) => a[i] * b[i]).reduce((m, n) => m + n).toFixed();  
 
+
   const avg = chartData ? dot((chartData as any).res2, weight) : null;
+
   const firstPage = useLocation().pathname  === "/" ? true : false;
   const finalPage = useLocation().pathname  === "/page4" ? true : false;
 
