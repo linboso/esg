@@ -18,38 +18,38 @@ import { useMutation } from "react-query"
 
 import SelectList from "../features/SelectList/SelectList"
 import { useEffect } from "react"
-import { SumCarbonVolume, updateGoHome, updateGoSchool } from "../slice/womSlice"
+import {
+  SumCarbonVolume,
+  updateGoHome,
+  updateGoSchool,
+} from "../slice/womSlice"
 
 function Page5() {
   const state = useAppSelector((state) => state.wayOfMoving.record)
   const { Userinfo } = useAppSelector((state) => state.InfoSlice)
   const dispatch = useAppDispatch()
   const mutation = useMutation(async (payload: unknown) => {
-    await postData(payload)    
+    await postData(payload)
   })
 
   let navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(updateGoHome(['rain', [...Array(10).fill(0)]]));
-    dispatch(updateGoSchool(['rain', [...Array(10).fill(0)]]));
+    dispatch(updateGoHome(["rain", [...Array(10).fill(0)]]))
+    dispatch(updateGoSchool(["rain", [...Array(10).fill(0)]]))
     // dispatch(SumCarbonVolume());
   }, [])
 
-
   const next = () => {
-    let c:number[] = [0,0];
-    for(let i=0; i< 10; i++){
-      if(state.rain.goHome[i] == 0) 
-        c[0]++;
-      if(state.rain.goSchool[i] == 0)
-        c[1]++;
+    let c: number[] = [0, 0]
+    for (let i = 0; i < 10; i++) {
+      if (state.rain.goHome[i] == 0) c[0]++
+      if (state.rain.goSchool[i] == 0) c[1]++
     }
     if (c[0] == 10 || c[1] == 10) {
-      alert("You need to fill in information at both side!");
-      return;
+      alert("You need to fill in information at both side!")
+      return
     }
-
 
     const payloadRainHome = state.rain.goHome
     const payloadRainSchool = state.rain.goSchool
@@ -68,13 +68,13 @@ function Page5() {
       },
     })
 
-    navigate("/page4");
+    navigate("/page4")
   }
 
   const back = () => {
-    dispatch(updateGoHome(['rain', [...Array(10).fill(0)]]));
-    dispatch(updateGoSchool(['rain', [...Array(10).fill(0)]]));
-    navigate("/page3");
+    dispatch(updateGoHome(["rain", [...Array(10).fill(0)]]))
+    dispatch(updateGoSchool(["rain", [...Array(10).fill(0)]]))
+    navigate("/page3")
   }
 
   return (

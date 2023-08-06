@@ -1,9 +1,19 @@
 import logo from "./logo.svg"
-import { useEffect, useState } from "react";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useEffect, useState } from "react"
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
 
-import {Grid, IconButton, Typography, Paper, Radio, Button, TextField, Box, Card} from '@mui/material';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
+import {
+  Grid,
+  IconButton,
+  Typography,
+  Paper,
+  Radio,
+  Button,
+  TextField,
+  Box,
+  Card,
+} from "@mui/material"
+import { useAppSelector, useAppDispatch } from "../app/hooks"
 import { getData } from "../api"
 
 import {
@@ -17,11 +27,11 @@ import {
   Tooltip,
   LineController,
   BarController,
-} from 'chart.js';
-import { Chart, Bar } from 'react-chartjs-2';
-import { TotalCarbomArray } from "../slice/womSlice";
-import { useRequestProcessor } from "../hooks/useRequestProcessor";
-import { useNavigate } from "react-router-dom";
+} from "chart.js"
+import { Chart, Bar } from "react-chartjs-2"
+import { TotalCarbomArray } from "../slice/womSlice"
+import { useRequestProcessor } from "../hooks/useRequestProcessor"
+import { useNavigate } from "react-router-dom"
 
 ChartJS.register(
   LinearScale,
@@ -32,26 +42,23 @@ ChartJS.register(
   Legend,
   Tooltip,
   LineController,
-  BarController
-);
-
-
+  BarController,
+)
 
 function Page4() {
-  const state = useAppSelector(state => state.wayOfMoving);
-  const dispatch = useAppDispatch();
-  let navigate = useNavigate();
-
+  const state = useAppSelector((state) => state.wayOfMoving)
+  const dispatch = useAppDispatch()
+  let navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(TotalCarbomArray());  
-  }, [state.sum.CarbonVolume]);
+    dispatch(TotalCarbomArray())
+  }, [state.sum.CarbonVolume])
 
   const back = () => {
-    navigate(-1);
+    navigate(-1)
   }
-  
-  const { query } = useRequestProcessor();
+
+  const { query } = useRequestProcessor()
 
   const {
     data: chartData,
@@ -82,23 +89,21 @@ function Page4() {
         label: "You daily carbon footprint",
         data: [...state.sum.CarbonArray],
         backgroundColor: "#474747",
-        yAxisID: 'y',
+        yAxisID: "y",
       },
       {
         label: "Avg Carbon footprint",
         data: (chartData as any)?.res ?? [],
         backgroundColor: "#4C72D2",
-        yAxisID: 'y',
-
+        yAxisID: "y",
       },
       {
-        type: 'line' as const,
+        type: "line" as const,
         label: "Traffic usage",
         data: chartData?.res3 ?? [...Array(10).fill(0)],
         backgroundColor: "#20d8b9",
-        yAxisID: 'y2',
-
-      }
+        yAxisID: "y2",
+      },
     ],
   }
 
@@ -114,45 +119,55 @@ function Page4() {
     },
     scales: {
       y: {
-        position: 'left',
-        ticks:{
-          callback: function(value:string, index:number, ticks:any) {
-            return value + " g-CO2";
-          }
+        position: "left",
+        ticks: {
+          callback: function (value: string, index: number, ticks: any) {
+            return value + " g-CO2"
+          },
         },
       },
       y2: {
-        type: 'linear',
-        position: 'right',
+        type: "linear",
+        position: "right",
       },
-    }
-  } as const 
+    },
+  } as const
 
   return (
     <>
-    <Box sx={{
-        // backgroundColor: "#d9e09a",
-        padding: 7, 
-      }}>
+      <Box
+        sx={{
+          // backgroundColor: "#d9e09a",
+          padding: 7,
+        }}
+      >
         <Paper
-          elevation={4}  
+          elevation={4}
           sx={{
             width: 1100,
             height: 520,
             backgroundColor: "#F5F5F5",
-        }}>
+          }}
+        >
           <Grid container direction="column">
-            <Grid item container xs={12} sx={{
-              // backgroundColor: "#895134",
-              flexDirection: "column"
-            }}>
-              <Box sx={{
-                // backgroundColor: "#865497",
-                paddingTop: 6,
-                width: 800,
-                alignSelf: "center"
-              }}>
-                <Chart type='bar' data={data} options={option as any}/>
+            <Grid
+              item
+              container
+              xs={12}
+              sx={{
+                // backgroundColor: "#895134",
+                flexDirection: "column",
+              }}
+            >
+              <Box
+                sx={{
+                  // backgroundColor: "#865497",
+                  paddingTop: 6,
+                  width: 800,
+                  alignSelf: "center",
+                }}
+              >
+                <Chart type="bar" data={data} options={option as any} />
               </Box>
             </Grid>
             {/* <Grid item sx={{
@@ -171,9 +186,6 @@ function Page4() {
           </Grid>
         </Paper>
       </Box>
-
-
-
     </>
   )
 }
