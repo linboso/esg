@@ -155,7 +155,7 @@ function Page4() {
                 <Chart type='bar' data={data} options={option as any}/>
               </Box>
             </Grid>
-            <Grid item sx={{
+            {/* <Grid item sx={{
               width: "100%",
               display: "flex",
               flexDirection: "column",
@@ -167,7 +167,7 @@ function Page4() {
                   <ArrowForwardIosIcon/>
                 </IconButton>
               </div>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Paper>
       </Box>

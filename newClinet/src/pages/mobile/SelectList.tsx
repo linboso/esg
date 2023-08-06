@@ -57,13 +57,13 @@ const SelectList: FC<{ Title: string; Weather: string; Go: string }> = ({
   ]
 
   const handleClick = () => {
-    if (selectItems.length >= 10) {
+    if (selectItems.length >= 3) {
       alert("selected too many cummiting way!")
       return
     }
 
     TmpselectItems.push({ text: "new row", id: selectItems.length + 1 })
-    // console.log(TmpselectItems);
+    console.log(TmpselectItems)
 
     setSelectItems((prevSelectItems) => [
       ...prevSelectItems,
@@ -73,7 +73,7 @@ const SelectList: FC<{ Title: string; Weather: string; Go: string }> = ({
 
   const remove = () => {
     if (selectItems.length <= 0) {
-      alert("remove too manty cummiting way!")
+      alert("remove too many cummiting way!")
       return
     }
 
@@ -92,12 +92,14 @@ const SelectList: FC<{ Title: string; Weather: string; Go: string }> = ({
     }
   }
 
+  const state = useAppSelector((state) => state.wayOfMoving)
+
   return (
     <>
       <Box
         sx={{
-          width: 340,
-          height: 315,
+          width: "230px",
+          // height: 315,
         }}
       >
         <Typography fontSize={18} fontWeight="bold">
@@ -113,8 +115,8 @@ const SelectList: FC<{ Title: string; Weather: string; Go: string }> = ({
         >
           <List
             sx={{
-              width: "100%",
-              maxHeight: 315,
+              // width: "100%",
+              // maxHeight: 315,
               bgcolor: "background.paper",
               overflowY: "auto",
             }}
@@ -132,7 +134,7 @@ const SelectList: FC<{ Title: string; Weather: string; Go: string }> = ({
                       sx={{
                         color: "#282c34",
                         backgroundColor: "#f0f0f0",
-                        width: 200,
+                        // width: 200,
                         marginLeft: 1,
                       }}
                       onChange={(item) => {
@@ -192,7 +194,9 @@ const SelectList: FC<{ Title: string; Weather: string; Go: string }> = ({
                       tmp[rowVaule[RowIndex]] = inputval
                       setRowTime(tmp)
                       if (Go == "school") {
+                        console.log("payload", [Weather, tmp])
                         dispatch(updateGoSchool([Weather, tmp]))
+                        console.log(state.record.sunny.goSchool)
                       } else {
                         dispatch(updateGoHome([Weather, tmp]))
                       }

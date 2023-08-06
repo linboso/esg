@@ -7,18 +7,18 @@ function Header() {
         sx={{
           // backgroundColor: "#3d9dbb",
           height: 80,
-          padding: 8,
+          padding: 3,
         }}
       >
-        <Typography variant="h4" fontWeight="bold">
+        <Typography fontSize={18} fontWeight="bold">
           My Travel Diary
         </Typography>
         <Typography
-          fontSize={18}
+          fontSize={12}
           sx={{
             marginTop: 2,
-            width: 800,
-            height: 80,
+            // width: "300px",
+            height: "60px",
           }}
         >
           This platform introduces the commute carbon footprint survey conducted

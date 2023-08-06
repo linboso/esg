@@ -79,14 +79,13 @@ function Sider() {
     [fontSize, text],
   )
 
-  console.log({ text })
-
   return (
     <>
       <Box
         sx={{
           // backgroundColor: "#15c924",
           display: "flex",
+          justifyContent: "center",
           // height: "100%",
           padding: 7,
           flexDirection: "column",
@@ -104,7 +103,7 @@ function Sider() {
         >
           {finalPage ? (
             <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>
-              Comparison Emissions Kg-CO2
+              Comparison Emissions Kg-CO2 {text === "0" ? "Average" : null}
             </Typography>
           ) : (
             <Typography variant="h6" fontWeight="bold" mt={3} ml={3}>
@@ -186,6 +185,7 @@ function Sider() {
             ) : firstPage ? (
               <img
                 src="/hall.png"
+                alt="hall"
                 style={{
                   alignSelf: "flex-end",
                   height: "80%",

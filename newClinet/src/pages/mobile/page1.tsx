@@ -1,5 +1,5 @@
 import logo from "./logo.svg"
-import { useNavigate, Link, useLocation, redirect } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
 import {
   Grid,
@@ -14,10 +14,10 @@ import {
   Typography,
   IconButton,
 } from "@mui/material"
-import { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { updateInfo } from "../slice/infoSlice"
-import { useMobileDetect } from "../hooks/uesMobileDetect"
+import { useState } from "react"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { updateInfo } from "../../slice/infoSlice"
+import { useMobileDetect } from "../../hooks/uesMobileDetect"
 
 const schools = [
   "竹圍高中",
@@ -48,38 +48,43 @@ function Page1() {
       alert("Please fill in corrects informance")
     }
     dispatch(updateInfo([schoolName, select_gender, age]))
-    navigate("/page2")
+    navigate("/mobile-page2")
   }
-
-  const detectMobile = useMobileDetect()
-
-  // redirect
-  useEffect(() => {
-    if (detectMobile.isMobile()) {
-      navigate("/mobile-page1")
-    }
-  }, [])
 
   return (
     <>
       <Box
         sx={{
           // backgroundColor: "#456365",
-          padding: 7,
+          padding: 3,
         }}
       >
         <Paper
           elevation={4}
           sx={{
-            width: 1100,
-            height: 520,
+            width: "150%",
+            // height: "100%",
+            height: "621px",
             backgroundColor: "#F5F5F5",
+            borderRadius: "30px",
+            display: "flex",
+            // flexDirection: 'row'
           }}
         >
           <Grid
             container
+            // align="center"
+            // justify="center"
+            justifyContent="center"
+            alignItems="center"
             sx={{
               display: "flex",
+              // padding: 20px;
+              //   flexDirection: "column",
+              //   alignItems: "flex-start",
+              //   gap: "10px",
+              //   flex: "1 0 0",
+              //   alignSelf: "stretch",
             }}
           >
             <Grid item xs={12}>
@@ -93,11 +98,11 @@ function Page1() {
                 sx={{
                   marginLeft: 3,
                   marginTop: 2,
-                  minWidth: 360,
-                  maxWidth: 400,
+                  width: 200,
+                  //   maxWidth: 400,
                 }}
               >
-                <InputLabel>School </InputLabel>
+                <InputLabel>School</InputLabel>
                 <Select
                   label="School"
                   value={schoolName}
@@ -119,8 +124,8 @@ function Page1() {
                 sx={{
                   marginLeft: 3,
                   marginTop: 2,
-                  minWidth: 360,
-                  maxWidth: 400,
+                  width: 200,
+                  //   maxWidth: 400,
                 }}
               >
                 <InputLabel>Gender</InputLabel>
@@ -148,8 +153,8 @@ function Page1() {
                 sx={{
                   marginLeft: 3,
                   marginTop: 2,
-                  minWidth: 360,
-                  maxWidth: 400,
+                  width: 200,
+                  //   maxWidth: 400,
                 }}
                 value={age}
                 onChange={(item) => {
@@ -176,6 +181,7 @@ function Page1() {
                   height: 30,
                   marginTop: 200,
                   marginRight: 20,
+                  marginBottom: 20,
                   alignSelf: "flex-end",
                 }}
               >

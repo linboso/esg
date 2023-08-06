@@ -7,13 +7,13 @@ import infoSlice from "../slice/infoSlice"
 export const store = configureStore({
   reducer: {
     wayOfMoving: wayOfMovingSlice,
-    InfoSlice: infoSlice
+    InfoSlice: infoSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ thunk: false, serializableCheck: false })
-      // .concat(sagaMiddleware, socketMiddleware)
-      // .concat(routerMiddleware)
-      // .concat(logger),
+    getDefaultMiddleware({ thunk: false, serializableCheck: false }),
+  // .concat(sagaMiddleware, socketMiddleware)
+  // .concat(routerMiddleware)
+  // .concat(logger),
 })
 
 export type AppDispatch = typeof store.dispatch
