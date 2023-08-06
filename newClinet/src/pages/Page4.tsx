@@ -100,7 +100,7 @@ function Page4() {
       {
         type: "line" as const,
         label: "Traffic usage",
-        data: chartData?.res3 ?? [...Array(10).fill(0)],
+        data: (chartData as any)?.res3 ?? [...Array(10).fill(0)],
         backgroundColor: "#20d8b9",
         yAxisID: "y2",
       },
